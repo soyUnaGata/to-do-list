@@ -6,6 +6,9 @@
    --white: #FFFFFF;
    --btn-dark: #272430;
    --btn-blue:#3C1F7B;
+   --main-calendar: #7E64FF;
+   --inactive: #7E7E7E;
+   --hover-calendar: #aaa;
    --fw-400: 400;
    --fw-500: 500;
    --fw-600: 600;
@@ -57,7 +60,55 @@
         color: var(--white);
         font-weight: var(--fw-500);
     }
+    .wrapper {
+        padding: 0rem 0.5rem;
+    }
+    .icons span {
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+        background-color: var(--main-calendar);
+        line-height: 30px;
+        text-align: center;
+        border-radius: 50%;
+    }
+    .weeks li {
+        width: calc(100% / 7);
+        font-weight: var(--fw-600);
+    }
+    .days li {
+        width: calc(100% / 7);
+        cursor: pointer;
+        z-index: 1;
+    }
+    .days li.inactive {
+        color: var(--inactive);
+    }
+    .main-calendar ul li {
+        position: relative;
+        margin-bottom: 10px;
+    }
+    .main-calendar .days li::before {
+        position: absolute;
+        content: '';
+        height: 35px;
+        width: 35px;
+        top: 50%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: -1;
+    }
+    .days li:hover::before {
+        background-color: var(--hover-calendar);
+    }
+    .days li.active::before {
+        background-color: var(--main-calendar);
+    }
     .calendar {
         background-color: var(--btn-dark);
+    }
+    .weeks, .days {
+        list-style: none;
     }
 }
