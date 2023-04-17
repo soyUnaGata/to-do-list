@@ -7,7 +7,7 @@
                 <span class="material-symbols-outlined" @click="next">chevron_right</span>
             </div>
         </div>
-        <table class="main-calendar">
+        <table class="main-calendar margin-top-0-5rem">
             <tr class="weeks">
                 <td v-for="dayTitle in dayTitles">{{ dayTitle }}</td>
             </tr>
