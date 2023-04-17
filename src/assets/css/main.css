@@ -72,43 +72,48 @@
         text-align: center;
         border-radius: 50%;
     }
-    .weeks li {
-        width: calc(100% / 7);
+    .current-date {
+        font-size: 1.5rem;
         font-weight: var(--fw-600);
     }
-    .days li {
-        width: calc(100% / 7);
+    .weeks td {
+        font-weight: var(--fw-600);
+    }
+    .days td {
         cursor: pointer;
         z-index: 1;
     }
-    .days li.inactive {
+    .days td.inactive {
         color: var(--inactive);
     }
-    .main-calendar ul li {
+    .main-calendar{
+        width: 100%;
+    }
+    .main-calendar td {
+        padding: 5px;
+    }
+    .main-calendar tr td {
         position: relative;
         margin-bottom: 10px;
     }
-    .main-calendar .days li::before {
+    .main-calendar .days td::before {
         position: absolute;
         content: '';
         height: 35px;
         width: 35px;
         top: 50%;
-        left: 20%;
+        left: 28%;
         transform: translate(-50%, -50%);
         border-radius: 50%;
         z-index: -1;
     }
-    .days li:hover::before {
+    .days td:hover::before {
         background-color: var(--hover-calendar);
     }
-    .days li.active::before {
+    .days td.active::before {
         background-color: var(--main-calendar);
     }
     .calendar {
         background-color: var(--btn-dark);
-    }
-    .weeks, .days {
-        list-style: none;
     }
 }
