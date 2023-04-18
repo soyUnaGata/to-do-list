@@ -30,26 +30,12 @@
 
                 <section class="modal-date d-flex w-100">
                     <slot name="date">
-                        <input class="input-date w-100" type="date" lang="en" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                        <VueDatePicker v-model="selectedDate" format="dd MMMM yyyy" :enable-time-picker="false" />
                      </slot>
                 </section>
 
                 <section class="modal-duration d-flex w-100">
-                    <slot name="duration">
-                        <select class="input-duration w-100">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="all-day">All Day</option>
-                        </select>
-                
-                     </slot>
+                 <SelectDuration/>
                 </section>
 
                 <section class="modal-color d-flex w-100 justify-content-around">
@@ -76,12 +62,19 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { ref } from 'vue';
 
+import VueDatePicker from '@vuepic/vue-datepicker';
 import RadioButton from './RadioButton.vue';
+import SelectDuration from './SelectDuration.vue';
 
+
+const date = ref(new Date());
 export default defineComponent ({
     components: {
         RadioButton,
+        VueDatePicker,
+        SelectDuration,
     },
     data() {
         return {
@@ -103,7 +96,8 @@ export default defineComponent ({
             ],
             color: 1,
             selectedColor: -1,
-            groupName: "color-group"
+            groupName: "color-group",
+            selectedDate: null,
         }
     },
     methods: {
@@ -174,106 +168,15 @@ input[type="text"].input-title::placeholder{
         text-align: left;
         padding: 8px 10px;
 }
-input[type="date"].input-date{
-    outline: none;
-    color: var(--input-text);
-    font-size: 17px;
-    line-height: 22px;
-    text-align: left;
-    padding: 8px 10px;
-    font-weight: var(--fw-300);
-    background-color: var(--inputs);
-    outline: none;
-    border: none;
-    border-radius: 10px;
-}
-.pick-color {
+/* .pick-color {
     width: 30px;
     height: 30px;
     cursor: pointer;
     list-style: none;
-}
-.modal-color  li:focus {
-  outline: 1px solid var(--btn-dark) !important; 
-}
-
-.modal-color  li:not(:focus) {
-  outline: none;
-}
-
-.pick-color.active{
-    border: 2px solid red;
-}
-
-.green {
-    background-color: var(--pick-green);
-    width: 35px;
-    height: 35px;
-}
-.pink {
-    background-color: var(--pick-pink);
-    width: 35px;
-    height: 35px;
-}
-.orange {
-    background-color: var(--pick-orange);
-    width: 35px;
-    height: 35px;
-}
-.blue {
-    background-color: var(--pick-blue);
-    width: 35px;
-    height: 35px;
-}
-.red {
-    background-color: var(--pick-red);
-    width: 35px;
-    height: 35px;
-}
-.yellow {
-    background-color: var(--pick-yellow);
-    width: 35px;
-    height: 35px;
-}
-
-.form_radio_group {
-	display: inline-block;
-	overflow: hidden;
-}
-.form_radio_group-item {
-	display: inline-block;
-	float: left;    
-}
-.form_radio_group input[type=radio] {
-	display: none;
-}
-.form_radio_group label {
-	display: inline-block;
-	cursor: pointer;
-	/* padding: 0px 15px;
-	line-height: 34px; */
-	border-right: none;
-	user-select: none;
-    width: 35px;
-    height: 35px;
-}
- 
-/* .form_radio_group .form_radio_group-item:first-child label {
-	border-radius: 6px 0 0 6px;
-}
-.form_radio_group .form_radio_group-item:last-child label {
-	border-radius: 0 6px 6px 0;
-	border-right: 1px solid #999;
 } */
- 
-/* Checked */
-.form_radio_group input[type=radio]:checked + label {
-	border: 2px solid var(--save-btn);
-}
- 
-/* Hover */
-.form_radio_group label:hover {
-	color: #666;
-}
+
+/* .pick-color.active{
+    border: 2px solid red;
+} */
 
 </style>
