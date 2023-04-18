@@ -6,11 +6,11 @@
 <div class="container">
   <header class="header d-flex justify-content-between align-items-center">
     <h3 class="headline">a.tiempo</h3>
-    <span class="add-new-task">+</span>
+    <span class="add-new-task" @click="showModal = true">+</span>
   </header>
 
   <main class="main">
-    <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center">
+    <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center gap-20px">
       <button type="button" class="main-btn calendar">Schedule</button>
       <button type="button" class="main-btn today">Today</button>
     </div>
@@ -22,16 +22,26 @@
     </div>
   </main>
 
-
+  <ModalForTask v-if="showModal" @close = "showModal = false">
+  </ModalForTask>
 </div>
 
 </template>
 
 <script>
- import Calendar from './components/Calendar'
+ import Calendar from './components/Calendar';
+import ModalForTask from './components/ModalForTask.vue';
 
 export default {
-  components:{ Calendar },
+  components:{
+    Calendar,
+    ModalForTask,
+},
+  data(){
+    return {
+      showModal: false,
+    }
+  }
 
 };
 </script>

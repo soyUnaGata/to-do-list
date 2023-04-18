@@ -1,0 +1,279 @@
+<template>
+    <div class="modal-backdrop d-flex justify-content-center align-items-center">
+            <div class="modal w-100 h-100 d-flex flex-column gap-10px">
+                <header class="modal-header d-flex margin-top-1rem justify-content-between">
+                    <slot name="close-modal">
+                        <button type="button" class="btn-modal-style"
+                            @click="$emit('close')">
+                            <span class="material-symbols-outlined close">
+                                arrow_back
+                                </span>
+                        </button>
+                    </slot>
+
+                    <slot name="save-modal">
+                        <button type="button" class="btn-modal-style"
+                        >
+                            <span class="material-symbols-outlined save">
+                                check
+                            </span>
+                        </button>
+                    </slot>
+                   
+                </header>
+
+                <section class="modal-title d-flex w-100">
+                    <slot name="title">
+                        <input class="input-title w-100" type="text" placeholder="Type your task title...">
+                     </slot>
+                </section>
+
+                <section class="modal-date d-flex w-100">
+                    <slot name="date">
+                        <input class="input-date w-100" type="date" lang="en" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                     </slot>
+                </section>
+
+                <section class="modal-duration d-flex w-100">
+                    <slot name="duration">
+                        <select class="input-duration w-100">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="all-day">All Day</option>
+                        </select>
+                
+                     </slot>
+                </section>
+
+                <section class="modal-color d-flex w-100 justify-content-around">
+                    <slot name="color">
+                        <!-- <li v-for="color in colors" @click="selectedColor = color" :class="['pick-color', color, selectedColor === color ? 'active' : '']"></li>  first variation-->
+                        <RadioButton v-for="color in colors"  v-model="selectedColor" :radio-id="`radio-${color.id}-${color.color}`" group-name="color" :value="color.id" :class-name="color.color" />
+                     </slot>
+                </section>
+
+                <section class="modal-place d-flex w-100">
+                    <slot name="place">
+                        <input class="input-place w-100" type="text">
+                     </slot>
+                </section>
+
+                <section class="modal-notice d-flex w-100">
+                    <slot name="notice">
+                        <textarea class="input-notice w-100"></textarea>
+                     </slot>
+                </section>
+          </div>
+        </div>            
+</template>
+
+<script>
+import { defineComponent } from 'vue';
+
+import RadioButton from './RadioButton.vue';
+
+export default defineComponent ({
+    components: {
+        RadioButton,
+    },
+    data() {
+        return {
+            // colors:[
+            //     "green",
+            //     "blue",
+            //     "pink",
+            //     "orange",
+            //     "red",
+            //     "yellow",
+            // ] for variation with array,
+            colors: [
+                { id: 1, color: "green" },
+                { id: 2, color: "blue" },
+                { id: 3, color: "pink" },
+                { id: 4, color: "orange" },
+                { id: 5, color: "red" },
+                { id: 6, color: "yellow" }
+            ],
+            color: 1,
+            selectedColor: -1,
+            groupName: "color-group"
+        }
+    },
+    methods: {
+        close(){
+            this.$emit('close')
+        },
+    }
+})
+</script>
+
+<style>
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--modal-bg);
+    z-index: var(--for-modal);
+    background: -moz-linear-gradient(188.24deg, #2A2A2E 15.5%, #1F1338 55.67%, #000000 114.26%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(188.24deg, #2A2A2E 15.5%, #1F1338 55.67%, #000000 114.26%); /* Chrome10-25,Safari5.1-6 */
+  }
+  .modal {
+    overflow-x: auto;
+    padding: 0 1.5rem;
+  }
+  .btn-modal-style {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--white);
+  }
+  .material-symbols-outlined {
+    font-size: 30px;
+    font-weight: var(--fw-500);
+  }
+  .save {
+    color: var(--save-btn);
+  }
+  .modal-title {
+    padding: 10px 0;
+  }
+  .input-title {
+    background-color: var(--inputs);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+
+  }
+input[type="text"].input-title{
+    outline: none;
+    color: var(--input-text);
+    font-size: 17px;
+    line-height: 22px;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: var(--fw-300);
+}
+input[type="text"].input-title:-webkit-autofil{
+        color: var(--input-text);
+        -webkit-text-fill-color: var(--input-text);
+}
+input[type="text"].input-title::placeholder{
+        color: var(--input-text);
+        font-size: 16px;
+        font-weight: var(--fw-300);
+        line-height: 22px;
+        text-align: left;
+        padding: 8px 10px;
+}
+input[type="date"].input-date{
+    outline: none;
+    color: var(--input-text);
+    font-size: 17px;
+    line-height: 22px;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: var(--fw-300);
+    background-color: var(--inputs);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+.pick-color {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    list-style: none;
+}
+.modal-color  li:focus {
+  outline: 1px solid var(--btn-dark) !important; 
+}
+
+.modal-color  li:not(:focus) {
+  outline: none;
+}
+
+.pick-color.active{
+    border: 2px solid red;
+}
+
+.green {
+    background-color: var(--pick-green);
+    width: 35px;
+    height: 35px;
+}
+.pink {
+    background-color: var(--pick-pink);
+    width: 35px;
+    height: 35px;
+}
+.orange {
+    background-color: var(--pick-orange);
+    width: 35px;
+    height: 35px;
+}
+.blue {
+    background-color: var(--pick-blue);
+    width: 35px;
+    height: 35px;
+}
+.red {
+    background-color: var(--pick-red);
+    width: 35px;
+    height: 35px;
+}
+.yellow {
+    background-color: var(--pick-yellow);
+    width: 35px;
+    height: 35px;
+}
+
+.form_radio_group {
+	display: inline-block;
+	overflow: hidden;
+}
+.form_radio_group-item {
+	display: inline-block;
+	float: left;    
+}
+.form_radio_group input[type=radio] {
+	display: none;
+}
+.form_radio_group label {
+	display: inline-block;
+	cursor: pointer;
+	/* padding: 0px 15px;
+	line-height: 34px; */
+	border-right: none;
+	user-select: none;
+    width: 35px;
+    height: 35px;
+}
+ 
+/* .form_radio_group .form_radio_group-item:first-child label {
+	border-radius: 6px 0 0 6px;
+}
+.form_radio_group .form_radio_group-item:last-child label {
+	border-radius: 0 6px 6px 0;
+	border-right: 1px solid #999;
+} */
+ 
+/* Checked */
+.form_radio_group input[type=radio]:checked + label {
+	border: 2px solid var(--save-btn);
+}
+ 
+/* Hover */
+.form_radio_group label:hover {
+	color: #666;
+}
+
+</style>

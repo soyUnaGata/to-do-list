@@ -3,12 +3,22 @@
 :root {
    --primary-bg: rgb(95,88,147);
    --primary-bg-gradient: radial-gradient(circle, rgba(95,88,147,1) 15%, rgba(58,51,114,1) 49%);
+   --modal-bg: linear-gradient(188.24deg, #2A2A2E 15.5%, #1F1338 55.67%, #000000 114.26%);
    --white: #FFFFFF;
+   --save-btn: #05FF00;
    --btn-dark: #272430;
    --btn-blue:#3C1F7B;
+   --inputs: #CCC2FE;
+   --input-text: #4F4F4F;
    --main-calendar: #7E64FF;
    --inactive: #7E7E7E;
    --hover-calendar: #aaa;
+   --pick-green: #CEEDC7;
+   --pick-pink: #FFC8DD;
+   --pick-red: #FF9494;
+   --pick-orange: #FFD4B2;
+   --pick-yellow: #FFF6BD;
+   --pick-blue: #D7E3FC;
    --fw-400: 400;
    --fw-500: 500;
    --fw-600: 600;
@@ -16,7 +26,8 @@
    --fw-800: 800;
    --fw-900: 900;
    --fw-1000: 1000;
-
+   --for-calendar: 1;
+   --for-modal: 22;
 }
 *{
     padding: 0;
@@ -46,12 +57,12 @@
     }
     .add-new-task {
         font-size: 2rem;
+        cursor: pointer;
     }
     .schedule {
         background-color: var(--btn-blue);
         margin: 0rem 1.8rem;
         padding: 4px;
-        gap: 20px;
     }
     .main-btn {
         background-color: transparent;
@@ -81,7 +92,7 @@
     }
     .days td {
         cursor: pointer;
-        z-index: 1;
+        z-index: var(--for-calendar);
     }
     .days td.inactive {
         color: var(--inactive);
