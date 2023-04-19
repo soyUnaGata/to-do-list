@@ -24,7 +24,7 @@
 
                 <section class="modal-title d-flex w-100">
                     <slot name="title">
-                        <input class="input-title w-100" type="text" placeholder="Type your task title...">
+                        <input class="input-title style-for-inputs w-100" type="text" placeholder="Type your task title...">
                      </slot>
                 </section>
 
@@ -35,7 +35,7 @@
                 </section>
 
                 <section class="modal-duration d-flex w-100">
-                 <SelectDuration/>
+                 <SelectDuration v-model="selectedDuration"/>
                 </section>
 
                 <section class="modal-color d-flex w-100 justify-content-around">
@@ -98,6 +98,7 @@ export default defineComponent ({
             selectedColor: -1,
             groupName: "color-group",
             selectedDate: null,
+            selectedDuration: '',
         }
     },
     methods: {
@@ -119,34 +120,27 @@ export default defineComponent ({
     z-index: var(--for-modal);
     background: -moz-linear-gradient(188.24deg, #2A2A2E 15.5%, #1F1338 55.67%, #000000 114.26%); /* FF3.6-15 */
     background: -webkit-linear-gradient(188.24deg, #2A2A2E 15.5%, #1F1338 55.67%, #000000 114.26%); /* Chrome10-25,Safari5.1-6 */
-  }
-  .modal {
-    overflow-x: auto;
-    padding: 0 1.5rem;
-  }
-  .btn-modal-style {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: var(--white);
-  }
-  .material-symbols-outlined {
-    font-size: 30px;
-    font-weight: var(--fw-500);
-  }
-  .save {
+}
+.modal {
+overflow-x: auto;
+padding: 0 1.5rem;
+}
+.btn-modal-style {
+border: none;
+background-color: transparent;
+cursor: pointer;
+color: var(--white);
+}
+.material-symbols-outlined {
+font-size: 30px;
+font-weight: var(--fw-500);
+}
+.save {
     color: var(--save-btn);
-  }
-  .modal-title {
+}
+.modal-title {
     padding: 10px 0;
-  }
-  .input-title {
-    background-color: var(--inputs);
-    outline: none;
-    border: none;
-    border-radius: 10px;
-
-  }
+}
 input[type="text"].input-title{
     outline: none;
     color: var(--input-text);

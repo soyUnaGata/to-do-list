@@ -127,4 +127,10 @@
     .calendar {
         background-color: var(--btn-dark);
     }
+    .style-for-inputs {
+        background-color: var(--inputs);
+        outline: none;
+        border: none;
+        border-radius: 10px;
+    }
 }
