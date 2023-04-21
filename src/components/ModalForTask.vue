@@ -1,6 +1,6 @@
 <template>
     <div class="modal-backdrop d-flex justify-content-center align-items-center">
-            <div class="modal w-100 h-100 d-flex flex-column gap-10px">
+            <div class="modal w-100 h-100 d-flex flex-column gap-15px">
                 <header class="modal-header d-flex margin-top-1rem justify-content-between">
                     <slot name="close-modal">
                         <button type="button" class="btn-modal-style"
@@ -12,7 +12,7 @@
                     </slot>
 
                     <slot name="save-modal">
-                        <button type="button" class="btn-modal-style"
+                        <button type="button" class="btn-modal-style" @click="saveTask"
                         >
                             <span class="material-symbols-outlined save">
                                 check
@@ -47,13 +47,13 @@
 
                 <section class="modal-place d-flex w-100">
                     <slot name="place">
-                        <input class="input-place w-100" type="text">
+                        <input class="input-place w-100 style-for-inputs" type="text" placeholder="Where?">
                      </slot>
                 </section>
 
                 <section class="modal-notice d-flex w-100">
                     <slot name="notice">
-                        <textarea class="input-notice w-100"></textarea>
+                        <textarea class="input-notice style-for-inputs w-100"></textarea>
                      </slot>
                 </section>
           </div>
@@ -138,23 +138,19 @@ font-weight: var(--fw-500);
 .save {
     color: var(--save-btn);
 }
-.modal-title {
-    padding: 10px 0;
-}
-input[type="text"].input-title{
+input[type="text"].input-title,.input-place{
     outline: none;
     color: var(--input-text);
     font-size: 17px;
     line-height: 22px;
     text-align: left;
-    padding: 8px 10px;
     font-weight: var(--fw-300);
 }
-input[type="text"].input-title:-webkit-autofil{
+input[type="text"].input-title,.input-place:-webkit-autofil{
         color: var(--input-text);
         -webkit-text-fill-color: var(--input-text);
 }
-input[type="text"].input-title::placeholder{
+input[type="text"].input-title,.input-place::placeholder{
         color: var(--input-text);
         font-size: 16px;
         font-weight: var(--fw-300);
@@ -172,5 +168,15 @@ input[type="text"].input-title::placeholder{
 /* .pick-color.active{
     border: 2px solid red;
 } */
-
+textarea {
+    color: var(--input-text);
+    font-size: 16px;
+    font-weight: var(--fw-300);
+    line-height: 22px;
+    text-align: left;
+}
+.input-notice{
+    height: 263px;
+    resize: none;
+}
 </style>
