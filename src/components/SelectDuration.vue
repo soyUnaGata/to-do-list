@@ -1,18 +1,4 @@
 <template>
-    <slot name="duration">
-        <!-- <select class="select-duration w-100">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="all-day">All Day</option>
-        </select> -->
-    </slot>
     <div class="select-duration w-100">
         <button  type="button" class="select-duration-btn d-flex justify-content-between w-100 style-for-inputs" @click.stop="show = !show">
             <span class="select-duration-text">{{currentValue.duration}}</span>
@@ -22,7 +8,7 @@
     </div>
 
     <Transition>
-            <div class="select-duration-menu" v-if="show">
+            <div class="select-duration-menu d-flex flex-column" v-if="show">
                 <div class="select-duration-item" v-for="dur in durations" @click.stop="select(dur)">
                     <span>{{ dur.duration }}</span>
                 </div>
@@ -88,19 +74,6 @@ export default defineComponent ({
 </script>
 
 <style scoped>
-select {
-  padding: 5px 35px 5px 5px;
-  font-size: 16px;
-  border: 1px solid #CCC;
-  height: 34px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url(../assets/img/arrow_drop_down.svg) 99% / 11% no-repeat var(--inputs);
-}
-select::-ms-expand {
-    display: none; /* Remove default arrow in Internet Explorer 10 and 11 */
-}
 
 .select-duration{
     position: relative;
@@ -108,29 +81,39 @@ select::-ms-expand {
 .select-duration-btn{
     padding: 15px 16px;
     gap: 10px;
+    color: var(--input-text);
+    font-size: 16px;
+    font-weight: var(--fw-300);
+    line-height: 22px;
+    text-align: left;
+
 }
-    .select-duration-btn--empty{
-        width: 127px;
-        height: 50px;
-    }
-    .select-duration-img{
-        height: 20px;
-        width: 20px;
-    }
-    .select-duration-item{
-        padding: 15px 16px;
-        display: flex;
-        gap: 10px;    
-        cursor: pointer;
-    }
-    .select-duration-menu{
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 99;
-        max-height: 200px;
-        overflow: auto;
-    }
+.select-duration-img{
+    height: 20px;
+    width: 20px;
+}
+.select-duration-item{
+    padding: 15px 16px;
+    display: flex;
+    gap: 10px;    
+    cursor: pointer;
+}
+.select-duration-menu{
+    position: absolute;
+    top: 245px;
+    left: 25px;
+    z-index: 99;
+    max-height: 200px;
+    overflow: auto;
+    width: 87%;
+    margin-top: 10px;
+    background: rgba(204, 194, 254, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.4px);
+    -webkit-backdrop-filter: blur(9.4px);
+    border: 1px solid rgba(204, 194, 254, 1);
+    border-radius: 10px;
+    color: var(--input-text);
+}
 </style>
