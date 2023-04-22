@@ -22,7 +22,13 @@
     </div>
   </main>
 
-  <ModalForTask v-if="showModal" @close = "showModal = false">
+  <div v-for="task in tasks">{{ task.date }}</div>
+
+  <ModalForTask 
+  v-if="showModal" 
+  :tasks="tasks"
+  @close = "showModal = false"
+  @save="saveTask">
   </ModalForTask>
 </div>
 
@@ -40,6 +46,13 @@ export default {
   data(){
     return {
       showModal: false,
+      tasks: [],
+    }
+  },
+  methods:{
+    saveTask(task){
+      this.tasks.push(task);
+      this.showModal=false;
     }
   }
 
