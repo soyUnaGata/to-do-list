@@ -24,13 +24,17 @@
 
                 <section class="modal-title d-flex w-100">
                     <slot name="title">
-                        <input class="input-title style-for-inputs w-100" type="text" placeholder="Type your task title...">
+                        <input 
+                        v-model="title"
+                        class="input-title style-for-inputs w-100" 
+                        type="text" 
+                        placeholder="Type your task title...">
                      </slot>
                 </section>
 
                 <section class="modal-date d-flex w-100">
                     <slot name="date">
-                        <VueDatePicker v-model="selectedDate" format="dd MMMM yyyy" :enable-time-picker="false" />
+                        <VueDatePicker v-model="selectedDate" format="dd MMMM yyyy" model-type="dd.MM.yyyy" :enable-time-picker="false" />
                      </slot>
                 </section>
 
@@ -41,19 +45,30 @@
                 <section class="modal-color d-flex w-100 justify-content-around">
                     <slot name="color">
                         <!-- <li v-for="color in colors" @click="selectedColor = color" :class="['pick-color', color, selectedColor === color ? 'active' : '']"></li>  first variation-->
-                        <RadioButton v-for="color in colors"  v-model="selectedColor" :radio-id="`radio-${color.id}-${color.color}`" group-name="color" :value="color.id" :class-name="color.color" />
+                        <RadioButton v-for="color in colors"  
+                        v-model="selectedColor" 
+                        :radio-id="`radio-${color.id}-${color.color}`" 
+                        group-name="color" 
+                        :value="color.id" 
+                        :class-name="color.color" />
                      </slot>
                 </section>
 
                 <section class="modal-place d-flex w-100">
                     <slot name="place">
-                        <input class="input-place w-100 style-for-inputs" type="text" placeholder="Where?">
+                        <input 
+                        v-model="location"
+                        class="input-place w-100 style-for-inputs" 
+                        type="text" 
+                        placeholder="Where?">
                      </slot>
                 </section>
 
                 <section class="modal-notice d-flex w-100">
                     <slot name="notice">
-                        <textarea class="input-notice style-for-inputs w-100"></textarea>
+                        <textarea 
+                        v-model="notice"
+                        class="input-notice style-for-inputs w-100"></textarea>
                      </slot>
                 </section>
           </div>
@@ -71,6 +86,12 @@ import SelectDuration from './SelectDuration.vue';
 
 const date = ref(new Date());
 export default defineComponent ({
+    // props: {
+    //     tasks: {
+    //         type: Array,
+    //     }
+
+    // },
     components: {
         RadioButton,
         VueDatePicker,
@@ -95,16 +116,30 @@ export default defineComponent ({
                 { id: 6, color: "yellow" }
             ],
             color: 1,
+            title:'',
+            location:'',
             selectedColor: -1,
             groupName: "color-group",
-            selectedDate: null,
+            selectedDate: '',
             selectedDuration: '',
+            notice:''
         }
     },
     methods: {
         close(){
             this.$emit('close')
         },
+        saveTask(){
+            if (this.title.length === 0 || this.selectedDate === null ) return;
+            this.$emit('save', {
+                date: this.selectedDate,
+                title: this.title,
+                duration: this.selectedDuration,
+                color: this.selectedColor,
+                location: this.location,
+                notice: this.notice,
+            });
+        }
     }
 })
 </script>
