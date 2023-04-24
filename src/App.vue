@@ -22,7 +22,13 @@
     </div>
   </main>
 
-  <div v-for="task in tasks">{{ task.date }}</div>
+  <div class="calendar__details">
+    <div class="calendar__details-wrapper" v-for="task in tasks">
+      <span class="calendar-date">{{ task.date.substring(0, 2)}}</span>
+      <span class="calendar-date">{{ task.title}}</span>
+
+    </div>
+  </div>
 
   <ModalForTask 
   v-if="showModal" 
@@ -37,6 +43,7 @@
 <script>
  import Calendar from './components/Calendar';
 import ModalForTask from './components/ModalForTask.vue';
+import TasksService from './services/local-storage/tasks-service';
 
 export default {
   components:{
@@ -49,11 +56,16 @@ export default {
       tasks: [],
     }
   },
+  mounted() {
+    this.tasks = TasksService.getAll()  
+  },
   methods:{
     saveTask(task){
-      this.tasks.push(task);
-      this.showModal=false;
-    }
+      TasksService.create(task);
+
+      this.tasks = TasksService.getAll();
+      this.showModal = false;
+    },
   }
 
 };
