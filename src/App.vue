@@ -22,12 +22,29 @@
     </div>
   </main>
 
-  <div class="calendar__details">
-    <div class="calendar__details-wrapper" v-for="task in tasks">
-      <span class="calendar-date">{{ task.date.substring(0, 2)}}</span>
-      <span class="calendar-date">{{ task.title}}</span>
-
+  <div class="calendar__details margin-top-3rem">
+    <h3 class="headline__3">Schedule</h3>
+    <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
+      <div class="task__details d-flex gap-15px" v-for="task in tasks">
+        <div class="date-style">
+          <span class="calendar-date">{{ task.date.substring(0, 2)}}</span>
+        </div>
+        <div class="main-task d-flex flex-column">
+          <p class="calendar-date__options task-option">{{ task.title}}</p>
+          <p class="calendar-date__options">Duration:
+            <span class="task-option">{{ task.duration.duration}}</span>     
+          </p>
+          <p class="calendar-date__options">Location: 
+            <span class="task-option">{{ task.location}}</span>
+          </p>
+          <p class="calendar-date__options">Notice: 
+            <span class="task-option">{{ task.notice}}</span>
+          </p>
+        </div>
+        
+      </div>
     </div>
+   
   </div>
 
   <ModalForTask 

@@ -30,7 +30,7 @@ export default defineComponent ({
     data(){
         return {
             durations: [
-                {id: 'd-emmpty', duration: 'None'},
+                {id: 'd-emmpty', duration: 'Duration none'},
                 { id: 'd-1', duration: 1 },
                 { id: 'd-2', duration: 2 },
                 { id: 'd-3', duration: 3 },
