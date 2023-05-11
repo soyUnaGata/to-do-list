@@ -134,5 +134,13 @@
         border-radius: 10px;
         padding: 12px;
     }
+    .date-style {
+        height: 32px;
+        width: 32px;
+        background-color: var( --btn-blue);
+        border: 2px solid var( --main-calendar);
+        border-radius: 50%;
+        padding: 4px;
+    }
 
 }
