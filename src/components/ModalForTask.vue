@@ -86,12 +86,12 @@ import SelectDuration from './SelectDuration.vue';
 
 const date = ref(new Date());
 export default defineComponent ({
-    // props: {
-    //     tasks: {
-    //         type: Array,
-    //     }
+    props: {
+        colors: {
+            type: Array,
+        }
 
-    // },
+    },
     components: {
         RadioButton,
         VueDatePicker,
@@ -107,14 +107,6 @@ export default defineComponent ({
             //     "red",
             //     "yellow",
             // ] for variation with array,
-            colors: [
-                { id: 1, color: "green" },
-                { id: 2, color: "blue" },
-                { id: 3, color: "pink" },
-                { id: 4, color: "orange" },
-                { id: 5, color: "red" },
-                { id: 6, color: "yellow" }
-            ],
             color: 1,
             title:'',
             location:'',

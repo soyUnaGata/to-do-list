@@ -50,35 +50,26 @@ export default defineComponent({
 </script>
 
 <style>
+.default-color {
+    background-color: var( --btn-blue);
+}
 .green {
     background-color: var(--pick-green);
-    width: 35px;
-    height: 35px;
 }
 .pink {
     background-color: var(--pick-pink);
-    width: 35px;
-    height: 35px;
 }
 .orange {
     background-color: var(--pick-orange);
-    width: 35px;
-    height: 35px;
 }
 .blue {
     background-color: var(--pick-blue);
-    width: 35px;
-    height: 35px;
 }
 .red {
     background-color: var(--pick-red);
-    width: 35px;
-    height: 35px;
 }
 .yellow {
     background-color: var(--pick-yellow);
-    width: 35px;
-    height: 35px;
 }
 
 .form_radio_group {
@@ -87,7 +78,9 @@ export default defineComponent({
 }
 .form_radio_group-item {
 	display: inline-block;
-	float: left;    
+	float: left;  
+    width: 35px;
+    height: 35px;  
 }
 .form_radio_group input[type=radio] {
 	display: none;
@@ -98,7 +91,7 @@ export default defineComponent({
 	border-right: none;
 	user-select: none;
     width: 35px;
-    height: 35px;
+    height: 35px; 
 }
 /* Checked */
 .form_radio_group input[type=radio]:checked + label {

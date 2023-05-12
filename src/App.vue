@@ -26,9 +26,10 @@
     <h3 class="headline__3">Schedule</h3>
     <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
       <div class="task__details d-flex gap-15px" v-for="task in tasks">
-        <div class="date-style">
+        <div class="date-style" :class="getColorById(task.color)">
           <span class="calendar-date">{{ task.date.substring(0, 2)}}</span>
         </div>
+
         <div class="main-task d-flex flex-column">
           <p class="calendar-date__options task-option">{{ task.title}}</p>
           <p class="calendar-date__options">Duration:
@@ -48,17 +49,17 @@
   </div>
 
   <ModalForTask 
-  v-if="showModal" 
-  :tasks="tasks"
-  @close = "showModal = false"
-  @save="saveTask">
+    v-if="showModal" 
+    :colors="colors"
+    @close = "showModal = false"
+    @save="saveTask">
   </ModalForTask>
 </div>
 
 </template>
 
 <script>
- import Calendar from './components/Calendar';
+import Calendar from './components/Calendar';
 import ModalForTask from './components/ModalForTask.vue';
 import TasksService from './services/local-storage/tasks-service';
 
@@ -71,6 +72,14 @@ export default {
     return {
       showModal: false,
       tasks: [],
+      colors: [
+                { id: 1, color: "green" },
+                { id: 2, color: "blue" },
+                { id: 3, color: "pink" },
+                { id: 4, color: "orange" },
+                { id: 5, color: "red" },
+                { id: 6, color: "yellow" }
+            ],
     }
   },
   mounted() {
@@ -83,6 +92,10 @@ export default {
       this.tasks = TasksService.getAll();
       this.showModal = false;
     },
+    getColorById(id){
+      const color = this.colors.find(c => c.id === id);
+      return color?.color ?? 'default-color'
+    }
   }
 
 };
