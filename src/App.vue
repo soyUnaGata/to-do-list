@@ -30,17 +30,25 @@
           <span class="calendar-date">{{ task.date.substring(0, 2)}}</span>
         </div>
 
-        <div class="main-task d-flex flex-column">
-          <p class="calendar-date__options task-option">{{ task.title}}</p>
-          <p class="calendar-date__options" v-if="task.duration">Duration:
-            <span class="task-option">{{ task.duration.duration}}</span>     
-          </p>
-          <p class="calendar-date__options" v-if="task.location">Location: 
-            <span class="task-option">{{ task.location}}</span>
-          </p>
-          <p class="calendar-date__options" v-if="task.notice">Notice: 
-            <span class="task-option">{{ task.notice}}</span>
-          </p>
+        <div class="main-task d-flex flex-column w-100 gap-10px" :class="getColorById(task.color)">
+          <div class="task-check d-flex justify-content-between align-items-center">
+            <p class="calendar-date__options task-option">{{ task.title}}</p>
+            <label for="taskDone"></label>
+            <input type="checkbox" name="" id="taskDone">
+          </div>
+          
+          <div class="task-description">
+            <p class="calendar-date__options" v-if="task.duration">Duration
+              <span class="task-option">{{ task.duration.duration}}</span>     
+            </p>
+            <p class="calendar-date__options" v-if="task.location">Location 
+              <span class="task-option">{{ task.location}}</span>
+            </p>
+            <p class="calendar-date__options" v-if="task.notice">Notice 
+              <span class="task-option">{{ task.notice}}</span>
+            </p>
+          </div>
+        
         </div>
         
       </div>

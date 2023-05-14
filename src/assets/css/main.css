@@ -141,5 +141,27 @@
         padding: 4px;
         border: 2px solid var( --main-calendar);
     }
+    .main-task{
+        padding: 9px 13px;
+        border-radius: 8px;
+    }
+    .task-check{
+        position: relative;
+        padding-bottom: 7px;
+    }
+    .task-check::after {
+        content: '';
+        border: 1px solid var( --main-calendar);
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+    .calendar-date__options {
+        font-weight: var(--fw-700);
+        line-height: 100%;
+    }
+    .task-option {
+        font-weight: var(--fw-400);   
+    }
 
 }
