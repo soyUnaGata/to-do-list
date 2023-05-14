@@ -32,13 +32,13 @@
 
         <div class="main-task d-flex flex-column">
           <p class="calendar-date__options task-option">{{ task.title}}</p>
-          <p class="calendar-date__options">Duration:
+          <p class="calendar-date__options" v-if="task.duration">Duration:
             <span class="task-option">{{ task.duration.duration}}</span>     
           </p>
-          <p class="calendar-date__options">Location: 
+          <p class="calendar-date__options" v-if="task.location">Location: 
             <span class="task-option">{{ task.location}}</span>
           </p>
-          <p class="calendar-date__options">Notice: 
+          <p class="calendar-date__options" v-if="task.notice">Notice: 
             <span class="task-option">{{ task.notice}}</span>
           </p>
         </div>

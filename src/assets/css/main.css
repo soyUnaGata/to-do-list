@@ -13,12 +13,12 @@
    --main-calendar: #7E64FF;
    --inactive: #7E7E7E;
    --hover-calendar: #aaa;
-   --pick-green: #CEEDC7;
-   --pick-pink: #FFC8DD;
-   --pick-red: #FF9494;
-   --pick-orange: #FFD4B2;
-   --pick-yellow: #FFF6BD;
-   --pick-blue: #D7E3FC;
+   --pick-green: #88d477;
+   --pick-pink:  #ff99c0;
+   --pick-red:  #ff8080;
+   --pick-orange:  #ffa866;
+   --pick-yellow: #ffe74d;
+   --pick-blue:  #88abf6;
    --fw-400: 400;
    --fw-500: 500;
    --fw-600: 600;
