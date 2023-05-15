@@ -5,6 +5,7 @@
    --primary-bg-gradient: radial-gradient(circle, rgba(95,88,147,1) 15%, rgba(58,51,114,1) 49%);
    --modal-bg: linear-gradient(188.24deg, #2A2A2E 15.5%, #1F1338 55.67%, #000000 114.26%);
    --white: #FFFFFF;
+   --transperent: rgba(255, 255, 255, 0);
    --save-btn: #05FF00;
    --btn-dark: #272430;
    --btn-blue:#3C1F7B;
@@ -19,6 +20,7 @@
    --pick-orange:  #ffa866;
    --pick-yellow: #ffe74d;
    --pick-blue:  #88abf6;
+   --border-checkbox: #C68AFF;
    --fw-400: 400;
    --fw-500: 500;
    --fw-600: 600;
@@ -163,5 +165,41 @@
     .task-option {
         font-weight: var(--fw-400);   
     }
+    .select__check {
+        transform: translate(16px, 2px);
+        opacity: 0;
+        z-index: 1;
+        position: relative; 
+      }
+      
+      .select__check + label {
+        position: relative;
+        padding-left: 25px; 
+        cursor: pointer;
+      }
+      
+      .select__check + label:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 15px; 
+        height: 15px; 
+        border: 2px solid var(--border-checkbox); 
+        background-color: var(--transperent); 
+        border-radius:  4px;
+      }
+      
+      .select__check:checked + label:before {
+        background-color:var(--transperent) ; 
+      }
+      
+      .select__check:checked + label:after {
+        content: "\2714"; 
+        position: absolute;
+        left: 4px;
+        font-size: 14px; 
+        color: #fff; 
+      }
 
 }
