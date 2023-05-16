@@ -25,7 +25,9 @@
   <div class="calendar__details margin-top-3rem">
     <h3 class="headline__3">Schedule</h3>
     <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
-      <div class="task__details d-flex gap-15px" v-for="task in tasks">
+      <div class="task__details d-flex gap-15px" v-for="(task, index) in tasks">
+        <div class="my-line" :class="{ 'my-line--last-task' : index === tasks.length - 1 }"></div>
+
         <div class="date-style" :class="getColorById(task.color)">
           <span class="calendar-date">{{ task.date.substring(0, 2)}}</span>
         </div>
@@ -43,7 +45,7 @@
           </div>
           
           <div class="task-description">
-            <p class="calendar-date__options" v-if="task.duration">Duration
+            <p class="calendar-date__options" v-if="task.duration && task.duration.id !== 'd-empty'  ">Duration
               <span class="task-option">{{ task.duration.duration}}</span>     
             </p>
             <p class="calendar-date__options" v-if="task.location">Location 

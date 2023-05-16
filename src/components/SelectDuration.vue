@@ -9,8 +9,8 @@
 
     <Transition>
             <div class="select-duration-menu d-flex flex-column" v-if="show">
-                <div class="select-duration-item" v-for="dur in durations" @click.stop="select(dur)">
-                    <span>{{ dur.duration }}</span>
+                <div class="select-duration-item" v-for="(dur, index) in durations" @click.stop="select(dur)">
+                    <span>{{ dur.duration}}</span>
                 </div>
             </div>
     </Transition>
@@ -30,7 +30,7 @@ export default defineComponent ({
     data(){
         return {
             durations: [
-                {id: 'd-emmpty', duration: 'Duration none'},
+                {id: 'd-empty', duration: 'Duration none'},
                 { id: 'd-1', duration: 1 },
                 { id: 'd-2', duration: 2 },
                 { id: 'd-3', duration: 3 },
@@ -107,7 +107,7 @@ export default defineComponent ({
     overflow: auto;
     width: 87%;
     margin-top: 10px;
-    background: rgba(204, 194, 254, 0.6);
+    background-color: rgba(204, 194, 254, 0.6);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(9.4px);

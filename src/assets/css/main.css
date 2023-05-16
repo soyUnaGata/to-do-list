@@ -170,15 +170,15 @@
         opacity: 0;
         z-index: 1;
         position: relative; 
-      }
+    }
       
-      .select__check + label {
+    .select__check + label {
         position: relative;
         padding-left: 25px; 
         cursor: pointer;
-      }
+    }
       
-      .select__check + label:before {
+    .select__check + label:before {
         content: "";
         position: absolute;
         left: 0;
@@ -188,18 +188,41 @@
         border: 2px solid var(--border-checkbox); 
         background-color: var(--transperent); 
         border-radius:  4px;
-      }
+    }
       
-      .select__check:checked + label:before {
+    .select__check:checked + label:before {
         background-color:var(--transperent) ; 
-      }
+    }
       
-      .select__check:checked + label:after {
+    .select__check:checked + label:after {
         content: "\2714"; 
+        /* content: "";  */
         position: absolute;
         left: 4px;
+        /* top: 3px; */
         font-size: 14px; 
         color: #fff; 
-      }
+        /* background-image: url(../img/checked-task.svg);
+        height: 15px;
+        background-size: 100%;
+        width: 15px;
+        background-repeat: no-repeat; */ /*if we want other check img */
+    }
+    .task__details{
+        position: relative;
+    }
+    .my-line{
+        display: none;
+    }
+    .my-line:not(.my-line--last-task){
+        display: block;
+        position: absolute;
+        top: 32px;
+        left: 14px;
+        width: 4px;
+        background-color: var(--border-checkbox);
+        height: calc(100% - 32px + 10px);
+    }
 
 }
+
