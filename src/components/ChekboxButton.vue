@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="checkbox-style">
        <input class="select__check" type="checkbox" v-model="statusValue" :id="checkId"/>
         <label :for="checkId"></label>
     </div>
