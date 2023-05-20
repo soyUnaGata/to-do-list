@@ -123,9 +123,9 @@ export default defineComponent ({
         },
         saveTask(){
             if (this.title.length === 0 || this.selectedDate === null ) return;
-            const id = Math.floor(Math.random() * 100) + 1;
+            const id = Math.floor(Math.random() * 100000000) + 1;
             this.$emit('save', {
-                id: `${id}-td`,
+                id: `${id}`,
                 date: this.selectedDate,
                 title: this.title,
                 duration: this.selectedDuration,
