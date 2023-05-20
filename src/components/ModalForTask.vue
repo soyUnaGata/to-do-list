@@ -114,7 +114,8 @@ export default defineComponent ({
             groupName: "color-group",
             selectedDate: '',
             selectedDuration: '',
-            notice:''
+            notice:'',
+            done: false
         }
     },
     methods: {
@@ -132,6 +133,7 @@ export default defineComponent ({
                 color: this.selectedColor,
                 location: this.location,
                 notice: this.notice,
+                done: this.done
             });
         }
     }

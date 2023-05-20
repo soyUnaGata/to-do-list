@@ -36,13 +36,14 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+body {
+    background: rgb(58,51,114);
+    background: linear-gradient(180deg, rgba(58,51,114,1) 24%, rgba(3,3,3,0.8687850140056023) 64%, rgba(58,51,114,1) 100%); 
+}
 #app {
     font-family: 'Nunito', sans-serif;
-    background: rgb(58,51,114);
-    background: linear-gradient(180deg, rgba(58,51,114,1) 24%, rgba(3,3,3,0.8687850140056023) 64%, rgba(58,51,114,1) 100%);
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     color: var(--white);
 }
 
@@ -196,11 +197,11 @@
         border-radius:  4px;
     }
       
-    .select__check:checked + label:before {
+    .select__check__label--checked:before {
         background-color:var(--transperent) ; 
     }
       
-    .select__check:checked + label:after {
+    .select__check__label--checked:after {
         content: "\2714"; 
         /* content: "";  */
         position: absolute;

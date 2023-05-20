@@ -1,7 +1,7 @@
 <template>
    <div class="checkbox-style">
        <input class="select__check" type="checkbox" v-model="statusValue" :id="checkId"/>
-        <label :for="checkId"></label>
+        <label :for="checkId" :class="{ 'select__check__label--checked' : statusValue }"></label>
     </div>
 </template>
 
@@ -13,7 +13,8 @@ export default defineComponent({
     props:{
     modelValue: {
       type: Boolean,
-      required: true
+      required: true,
+      default:false
     },
     checkId: {
       type: String,
