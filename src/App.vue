@@ -23,9 +23,17 @@
   </main>
 
   <div class="calendar__details margin-top-3rem">
-    <h3 class="headline__3">Schedule 
-      <input name="showCompleted" type="checkbox" v-model="showCompleted"/>
-    </h3>
+    <div class="schedule__details d-flex justify-content-between">
+      <h3 class="headline__3">Schedule</h3>
+      <div class="show__completed__details d-flex align-items-center gap-5px">
+        <p class="completed__tasks-done">Done</p>
+        <p class="completed__tasks-count">{{ completedTasks.length }}</p>
+        <span>from</span>
+        <p class="summary__tasks">{{ tasks.length }}</p> 
+        <input class="switch" name="switchCompleted" type="checkbox" v-model="showCompleted"/>
+      </div>
+    </div>
+
     <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
       <TaskList  v-if="showCompleted" 
         :tasks="completedTasks"
@@ -104,7 +112,8 @@ export default {
       return this.tasks.filter(task => task.done)
     },
     scheduleTasks(){
-      return this.tasks.filter(task => !task.done)
+      const filteredTasks = this.tasks.filter(task => !task.done);
+      return filteredTasks
     },
   }
 };

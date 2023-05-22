@@ -60,6 +60,9 @@
   .flex-wrap-wrap {
     flex-wrap: wrap;
   }
+  .line-through {
+    text-decoration: line-through;
+  }
   .w-100 {
     width: 100%;
   }
