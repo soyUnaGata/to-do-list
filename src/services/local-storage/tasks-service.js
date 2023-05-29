@@ -11,7 +11,19 @@ class TasksService {
 
     get(){}
 
-    update(){}
+    update(task){
+        let taskIndex = this.tasks.findIndex(item => item.id === task.id);
+        if (taskIndex !== -1) {
+            this.tasks[taskIndex] = task;
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        }
+    }
+
+    edit(task){
+        const taskId = this.tasks.filter(item => item.id == task.id);
+        // taskId.edit = true;
+        localStorage.setItem('tasks', JSON.stringify(this.tasks))
+    }
 
     switchCompleteState(task){
         if(!task) return;
@@ -22,8 +34,6 @@ class TasksService {
 
     remove(task){
         const index = this.tasks.findIndex(item => item.id == task.id);
-        console.log(index)
-
         if(index !== -1){
             this.tasks.splice(index, 1)
             localStorage.setItem('tasks', JSON.stringify(this.tasks))
@@ -32,7 +42,7 @@ class TasksService {
     }
 
     create(task){
-        this.tasks.push(task)
+        this.tasks.push(task);
         localStorage.setItem('tasks', JSON.stringify(this.tasks))
     }
 }

@@ -25,7 +25,7 @@
                 <section class="modal-title d-flex w-100">
                     <slot name="title">
                         <input 
-                        v-model="title"
+                        v-model="task.title"
                         class="input-title style-for-inputs w-100" 
                         type="text" 
                         placeholder="Type your task title...">
@@ -34,19 +34,19 @@
 
                 <section class="modal-date d-flex w-100">
                     <slot name="date">
-                        <VueDatePicker v-model="selectedDate" format="dd MMMM yyyy" model-type="dd.MM.yyyy" :enable-time-picker="false" />
+                        <VueDatePicker v-model="task.selectedDate" format="dd MMMM yyyy" model-type="dd.MM.yyyy" :enable-time-picker="false" />
                      </slot>
                 </section>
 
                 <section class="modal-duration d-flex w-100">
-                 <SelectDuration v-model="selectedDuration"/>
+                 <SelectDuration v-model="task.selectedDuration"/>
                 </section>
 
                 <section class="modal-color d-flex w-100 justify-content-around">
                     <slot name="color">
                         <!-- <li v-for="color in colors" @click="selectedColor = color" :class="['pick-color', color, selectedColor === color ? 'active' : '']"></li>  first variation-->
                         <RadioButton v-for="color in colors"  
-                        v-model="selectedColor" 
+                        v-model="task.selectedColor" 
                         :radio-id="`radio-${color.id}-${color.color}`" 
                         group-name="color" 
                         :value="color.id" 
@@ -57,7 +57,7 @@
                 <section class="modal-place d-flex w-100">
                     <slot name="place">
                         <input 
-                        v-model="location"
+                        v-model="task.location"
                         class="input-place w-100 style-for-inputs" 
                         type="text" 
                         placeholder="Where?">
@@ -67,7 +67,7 @@
                 <section class="modal-notice d-flex w-100">
                     <slot name="notice">
                         <textarea 
-                        v-model="notice"
+                        v-model="task.notice"
                         class="input-notice style-for-inputs w-100"></textarea>
                      </slot>
                 </section>
@@ -82,6 +82,7 @@ import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import RadioButton from './RadioButton.vue';
 import SelectDuration from './SelectDuration.vue';
+import tasksService from '@/services/local-storage/tasks-service';
 
 
 const date = ref(new Date());
@@ -89,8 +90,10 @@ export default defineComponent ({
     props: {
         colors: {
             type: Array,
-        }
-
+        },
+        task: {
+            type: Object      
+        },
     },
     components: {
         RadioButton,
@@ -107,15 +110,7 @@ export default defineComponent ({
             //     "red",
             //     "yellow",
             // ] for variation with array,
-            color: 1,
-            title:'',
-            location:'',
-            selectedColor: -1,
-            groupName: "color-group",
-            selectedDate: '',
-            selectedDuration: '',
-            notice:'',
-            done: false
+           
         }
     },
     methods: {
@@ -123,19 +118,9 @@ export default defineComponent ({
             this.$emit('close')
         },
         saveTask(){
-            if (this.title.length === 0 || this.selectedDate === null ) return;
-            const id = Math.floor(Math.random() * 100000000) + 1;
-            this.$emit('save', {
-                id: `${id}`,
-                date: this.selectedDate,
-                title: this.title,
-                duration: this.selectedDuration,
-                color: this.selectedColor,
-                location: this.location,
-                notice: this.notice,
-                done: this.done
-            });
-        }
+            if (this.task.title.length === 0 || this.selectedDate === null ) return;
+            this.$emit('save', this.task);
+        },
     }
 })
 </script>

@@ -6,7 +6,7 @@
 <div class="container">
   <header class="header d-flex justify-content-between align-items-center">
     <h3 class="headline">a.tiempo</h3>
-    <span class="add-new-task" @click="showModal = true">+</span>
+    <span class="add-new-task" @click="addTask">+</span>
   </header>
 
   <main class="main">
@@ -38,11 +38,14 @@
       <TaskList  v-if="showCompleted" 
         :tasks="completedTasks"
         :colors="colors"
-        @checked-task="checkTask"/>
+        @checked-task="checkTask"
+        @deleted-task="deleteTask"/>
       <TaskList v-else 
         :tasks="scheduleTasks"
         :colors="colors"
-        @checked-task="checkTask"/>
+        @checked-task="checkTask"
+        @edit-current-task="editTask"
+        @deleted-task="deleteTask"/>
     
     </div>
    
@@ -52,7 +55,8 @@
     v-if="showModal" 
     :colors="colors"
     @close = "showModal = false"
-    @save="saveTask">
+    @save="saveTask"
+    :task="selectedTask">
   </ModalForTask>
 </div>
 
@@ -64,6 +68,7 @@ import ModalForTask from './components/ModalForTask.vue';
 import ChekboxButton from './components/ChekboxButton.vue';
 import TasksService from './services/local-storage/tasks-service';
 import TaskList from './components/TaskList.vue';
+import moment from 'moment';
 
 export default {
   components:{
@@ -71,7 +76,7 @@ export default {
     ModalForTask,
     ChekboxButton,
     TaskList
-},
+  },
   data(){
     return {
       showModal: false,
@@ -86,6 +91,7 @@ export default {
       ],
       showCompleted: false,
       task: [],
+      selectedTask: null,
     }
   },
   mounted() {
@@ -93,14 +99,38 @@ export default {
   },
   methods:{
     saveTask(task){
-      TasksService.create(task);
+      if(this.selectedTask.id){
+        TasksService.update(task);
+      }else{
+        task.id = Math.floor(Math.random() * 100000000) + 1;
+        TasksService.create(task);
+      } 
+
       this.tasks = TasksService.getAll();
       this.showModal = false;
     },
     checkTask(task){
-      console.log(task)
       this.task = task
       TasksService.switchCompleteState(task);
+    },
+    addTask(){
+      this.selectedTask = {
+        id: null,
+        title: '',
+        color: null,
+        location: '',
+        selectedColor: -1,
+        groupName: "color-group",
+        selectedDate: '',
+        selectedDuration: null,
+        notice: null,
+        done: false,
+      };
+      this.showModal = true;
+    },
+    editTask(task){
+      this.selectedTask = Object.assign({}, task);
+      this.showModal = true
     },
     deleteTask(task){
       TasksService.remove(task);
@@ -108,12 +138,18 @@ export default {
     }
   }, 
   computed:{
+    sortedTasks(){
+      return this.tasks.sort((a, b) => {
+        const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
+        const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
+        return aDate.isBefore(bDate) ? -1 : 1;
+      });
+    },
     completedTasks(){
-      return this.tasks.filter(task => task.done)
+      return this.sortedTasks.filter(task => task.done)
     },
     scheduleTasks(){
-      const filteredTasks = this.tasks.filter(task => !task.done);
-      return filteredTasks
+      return this.sortedTasks.filter(task => !task.done);
     },
   }
 };

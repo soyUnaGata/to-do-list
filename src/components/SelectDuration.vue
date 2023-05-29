@@ -1,7 +1,7 @@
 <template>
     <div class="select-duration w-100">
         <button  type="button" class="select-duration-btn d-flex justify-content-between w-100 style-for-inputs" @click.stop="show = !show">
-            <span class="select-duration-text">{{currentValue.duration}}</span>
+            <span class="select-duration-text">{{currentValue?.duration}}</span>
             <img class="select-duration-img select-duration-arrow" v-if="show" src="../assets/img/arrow-small-up.svg" />
             <img class="select-duration-img select-duration-arrow" v-else src="../assets/img/arrow-small-down.svg" />
         </button>
@@ -22,7 +22,7 @@
 export default defineComponent ({
     props:{
             modelValue: {
-                type: String,
+                type: Object,
                 required: true
             }
         },
@@ -56,8 +56,8 @@ export default defineComponent ({
         }
     },
     methods:{
-            select(duration){
-                this.currentValue = duration;
+            select(dur){
+                this.currentValue = dur;
                 this.show = false;
             },
             hide(){
