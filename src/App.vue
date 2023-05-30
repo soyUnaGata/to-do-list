@@ -95,7 +95,7 @@ export default {
     }
   },
   mounted() {
-    this.tasks = TasksService.getAll()  
+    this.tasks = TasksService.getAll()  ;
   },
   methods:{
     saveTask(task){

@@ -1,12 +1,12 @@
 <template>
-    <div class="task__details d-flex gap-15px" v-for="(task, index) in tasks">
+    <div class="task__details d-flex gap-15px"  v-for="(task, index) in tasks">
         <div class="my-line" :class="{ 'my-line--last-task' : index === tasks.length - 1 }"></div>
 
-        <div class="date-style" :class="getColorById(task.selectedColor)">
+        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']">
           <span class="calendar-date">{{ task.selectedDate?.substring(2,0)}}</span>
         </div>
 
-        <div class="main-task d-flex flex-column w-100 gap-10px" :class="getColorById(task.selectedColor)">
+        <div class="main-task d-flex flex-column w-100 gap-10px" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']">
           <div class="task-check d-flex justify-content-between align-items-center">
             <p class="calendar-date__options task-option" :class="{ 'line-through': task.done }">{{ task.title}}</p>
             <div class="edit__task-option d-flex align-items-center gap-5px">
@@ -49,6 +49,7 @@
 
 <script>
 import ChekboxButton from './ChekboxButton.vue';
+import moment from 'moment';
 
 export default {
     props:{
@@ -78,6 +79,11 @@ export default {
       getColorById(id){
         const color = this.colors.find(c => c.id === id);
         return color?.color ?? 'default-color'
+      },
+      isPastDate(task){
+        const currentDate = moment();
+        const taskDate = moment(task.selectedDate, 'DD.MM.YYYY');
+        return currentDate.diff(taskDate, 'd') > 0;
       }
     },
 }

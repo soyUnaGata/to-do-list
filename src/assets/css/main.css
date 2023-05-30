@@ -190,6 +190,7 @@ body {
     .main-task{
         padding: 9px 13px;
         border-radius: 8px;
+        position: relative;
     }
     .task-check{
         position: relative;
@@ -277,6 +278,26 @@ body {
         background: none;
         border: none;
         cursor: pointer;
+    }
+    .previous-date{
+        background: rgba( 36, 22, 65, 0.4 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 3.5px );
+        -webkit-backdrop-filter: blur( 3.5px );
+        border: 1px solid blur( 3.5px );
+    }
+    .previous-date::before {
+        content: '';
+        width: 100%;
+        position: absolute;
+        z-index: 22;
+        height: 100%;
+        border-radius: 11px;
+        top: 0;
+        left: 0;
+        background: rgba( 6, 0, 0, 0.35 );
+        backdrop-filter: blur( 0.4px );
+        -webkit-backdrop-filter: blur( 0.4px );
     }
 
 }
