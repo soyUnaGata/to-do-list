@@ -11,6 +11,7 @@
    --btn-blue:#3C1F7B;
    --inputs: #CCC2FE;
    --input-text: #4F4F4F;
+   --past-date: #666666;
    --main-calendar: #7E64FF;
    --inactive: #7E7E7E;
    --hover-calendar: #aaa;
@@ -97,6 +98,7 @@ body {
     .days td {
         cursor: pointer;
         z-index: var(--for-calendar);
+        position: relative;
     }
     .days td.inactive {
         color: var(--inactive);
@@ -285,6 +287,7 @@ body {
         backdrop-filter: blur( 3.5px );
         -webkit-backdrop-filter: blur( 3.5px );
         border: 1px solid blur( 3.5px );
+        color:  var( --past-date);
     }
     /* .previous-date::before {
         content: '';
@@ -299,9 +302,14 @@ body {
         backdrop-filter: blur( 0.4px );
         -webkit-backdrop-filter: blur( 0.4px );
     } */
-    .has-date {
-        background-color: #05FF00;
-        border: 5px solid var(--pick-red);
+    .has-date::after {
+        border-bottom: 1px solid var(--white);
+        width: 15px;
+        border-bottom-color: currentcolor;
+        content: '';
+        bottom: 0;
+        position: absolute;
+        left: 4px;
     }
 
 
