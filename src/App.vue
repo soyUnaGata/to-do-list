@@ -17,7 +17,8 @@
 
     <div class="wrapper margin-top-2rem">
       <div class="current-calendar">
-        <Calendar></Calendar>
+        <Calendar
+        :tasks="scheduleTasks"/>
       </div>
     </div>
   </main>
@@ -95,7 +96,7 @@ export default {
     }
   },
   mounted() {
-    this.tasks = TasksService.getAll()  ;
+    this.tasks = TasksService.getAll();
   },
   methods:{
     saveTask(task){

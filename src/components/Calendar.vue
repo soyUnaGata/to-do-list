@@ -12,7 +12,9 @@
                 <td v-for="dayTitle in dayTitles">{{ dayTitle }}</td>
             </tr>
             <tr class="days" v-for="week in weeks">
-                <td v-for="day in week" :class="{ 'active': day.isToday, 'inactive': !day.isCurrentMonth }">{{ day.date }}</td>
+                <td v-for="day in week" :class="{ 'active': day.isToday, 'inactive': !day.isCurrentMonth, 'has-date': day.hasTask }">
+                    <div></div>
+                    {{ day.date }}</td>
             </tr>
         </table>
     </div>
@@ -22,7 +24,14 @@
 
 
 <script>
+import moment from 'moment';
+
     export default({
+        props:{
+            tasks:{
+                type: Array
+            }
+        },
         data(){
             return {
                 dayTitles: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -36,7 +45,10 @@
         watch: {
             current: function(val){
                 console.log('current: ', val)
-            }
+            },
+            tasks: function(val){
+                this.drawTable()
+            },
         },
         methods:{
             preview(){
@@ -59,7 +71,7 @@
 
                 const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
                 const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                
+
 
                 const startDayOfWeek = start.getDay(); // day of week 0..6
                 start.setDate(start.getDate() - startDayOfWeek);
@@ -77,11 +89,12 @@
                         && start.getFullYear() === this.today.getFullYear());
 
                     const isCurrentMonth = start.getMonth() === this.current.getMonth();
-
+                     
                     const day = {
                         date: start.getDate(),
                         isToday: isToday,
-                        isCurrentMonth: isCurrentMonth
+                        isCurrentMonth: isCurrentMonth, 
+                        hasTask: this.hasTasks(start)
                     }
                     weekDays.push(day)
                     start.setDate(start.getDate() + 1);
@@ -93,12 +106,22 @@
                 }
                 
                 this.weeks = weeks;
+            },
+            hasTasks(date){
+                const day = this.formatNumber(date.getDate());
+                const month = this.formatNumber(date.getMonth() + 1) ;
+                const year = date.getFullYear();
+                return this.tasks.some(t => t.selectedDate === `${day}.${month}.${year}`);
+            },
+            formatNumber(num) {
+                return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
             }
         },
         created(){
             const today = new Date();
             this.today = today;
             this.setCurrent(new Date(today.getFullYear(), today.getMonth(), 1));
+            this.drawTable();
         }
     })
 

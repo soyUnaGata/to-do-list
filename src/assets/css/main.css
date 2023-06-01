@@ -286,7 +286,7 @@ body {
         -webkit-backdrop-filter: blur( 3.5px );
         border: 1px solid blur( 3.5px );
     }
-    .previous-date::before {
+    /* .previous-date::before {
         content: '';
         width: 100%;
         position: absolute;
@@ -298,7 +298,12 @@ body {
         background: rgba( 6, 0, 0, 0.35 );
         backdrop-filter: blur( 0.4px );
         -webkit-backdrop-filter: blur( 0.4px );
+    } */
+    .has-date {
+        background-color: #05FF00;
+        border: 5px solid var(--pick-red);
     }
+
 
 }
 
