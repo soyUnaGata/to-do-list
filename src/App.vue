@@ -11,11 +11,11 @@
 
   <main class="main">
     <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center gap-20px">
-      <button type="button" class="main-btn calendar">Schedule</button>
-      <button type="button" class="main-btn today">Today</button>
+      <button type="button" class="main-btn calendar" :class="{ 'currentBtn': activeTab === 'shedule' }" @click=" activeShedule">Schedule</button>
+      <button type="button" class="main-btn today" :class="{ 'currentBtn': activeTab === 'today' }" @click="activeToday">Today</button>
     </div>
 
-    <div class="wrapper margin-top-2rem">
+    <div class="wrapper margin-top-2rem" v-if="activeTab">
       <div class="current-calendar">
         <Calendar
         :tasks="scheduleTasks"/>
@@ -23,7 +23,8 @@
     </div>
   </main>
 
-  <div class="calendar__details margin-top-3rem">
+ <div v-if="activeTab === 'shedule'" >
+    <div class="calendar__details margin-top-3rem">
     <div class="schedule__details d-flex justify-content-between">
       <h3 class="headline__3">Schedule</h3>
       <div class="show__completed__details d-flex align-items-center gap-5px">
@@ -51,7 +52,9 @@
     
     </div>
    
-  </div>
+    </div>
+ </div>
+  <div v-else="activeTab === 'today'">TESTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIING</div>
 
   <ModalForTask 
     v-if="showModal" 
@@ -94,12 +97,22 @@ export default {
       showCompleted: false,
       task: [],
       selectedTask: null,
+      activeTab: ''
     }
   },
   mounted() {
     this.tasks = TasksService.getAll();
+    this.activeTab = 'shedule'
   },
   methods:{
+    activeShedule(){
+      console.log(this.activeTab)
+      this.activeTab = 'shedule'
+    },
+    activeToday(){
+      console.log(this.activeTab)
+      this.activeTab = 'today'
+    },
     saveTask(task){
       if(this.selectedTask.id){
         TasksService.update(task);

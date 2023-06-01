@@ -130,7 +130,10 @@ body {
     .days td.active::before {
         background-color: var(--main-calendar);
     }
-    .calendar {
+    /* .calendar {
+        background-color: var(--btn-dark);
+    } */
+    .currentBtn {
         background-color: var(--btn-dark);
     }
     .style-for-inputs {
