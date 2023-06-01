@@ -2,7 +2,7 @@
     <div class="task__details d-flex gap-15px"  v-for="(task, index) in tasks">
         <div class="my-line" :class="{ 'my-line--last-task' : index === tasks.length - 1 }"></div>
 
-        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']">
+        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '' ]">
           <span class="calendar-date">{{ task.selectedDate?.substring(2,0)}}</span>
         </div>
 
