@@ -64,7 +64,6 @@ export default {
     emits:['checked-task','edit-current-task', 'deleted-task'],
     components:{
       ChekboxButton,
- 
     },
     methods: {
       checkedTask(task){

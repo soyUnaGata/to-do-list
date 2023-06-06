@@ -11,8 +11,8 @@
 
   <main class="main">
     <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center gap-20px">
-      <button type="button" class="main-btn calendar" :class="{ 'currentBtn': activeTab === 'shedule' }" @click=" activeShedule">Schedule</button>
-      <button type="button" class="main-btn today" :class="{ 'currentBtn': activeTab === 'today' }" @click="activeToday">Today</button>
+      <button type="button" class="main-btn calendar" :class="{ 'currentBtn': activeTab === TABS.CALENDAR }" @click=" activeShedule">Schedule</button>
+      <button type="button" class="main-btn today" :class="{ 'currentBtn': activeTab === TABS.TODAY }" @click="activeToday">Today</button>
     </div>
 
     <div class="wrapper margin-top-2rem" v-if="activeTab">
@@ -23,7 +23,7 @@
     </div>
   </main>
 
- <div v-if="activeTab === 'shedule'" >
+ <div v-if="activeTab === TABS.CALENDAR" >
     <div class="calendar__details margin-top-3rem">
     <div class="schedule__details d-flex justify-content-between">
       <h3 class="headline__3">Schedule</h3>
@@ -54,7 +54,10 @@
    
     </div>
  </div>
-  <div v-else="activeTab === 'today'">TESTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIING</div>
+  <div v-else="activeTab === TABS.TODAY">
+    <TabToday
+    :tasks="scheduleTasks"/>
+  </div>
 
   <ModalForTask 
     v-if="showModal" 
@@ -73,6 +76,7 @@ import ModalForTask from './components/ModalForTask.vue';
 import ChekboxButton from './components/ChekboxButton.vue';
 import TasksService from './services/local-storage/tasks-service';
 import TaskList from './components/TaskList.vue';
+import TabToday from './components/TabToday.vue';
 import moment from 'moment';
 
 export default {
@@ -80,7 +84,8 @@ export default {
     Calendar,
     ModalForTask,
     ChekboxButton,
-    TaskList
+    TaskList,
+    TabToday,
   },
   data(){
     return {
@@ -97,21 +102,23 @@ export default {
       showCompleted: false,
       task: [],
       selectedTask: null,
-      activeTab: ''
+      activeTab: '',
+      TABS: {
+        CALENDAR: 'shedule',
+        TODAY: 'today'
+      }
     }
   },
   mounted() {
     this.tasks = TasksService.getAll();
-    this.activeTab = 'shedule'
+    this.activeTab = this.TABS.CALENDAR
   },
   methods:{
     activeShedule(){
-      console.log(this.activeTab)
-      this.activeTab = 'shedule'
+      this.activeTab = this.TABS.CALENDAR
     },
     activeToday(){
-      console.log(this.activeTab)
-      this.activeTab = 'today'
+      this.activeTab = this.TABS.TODAY
     },
     saveTask(task){
       if(this.selectedTask.id){
