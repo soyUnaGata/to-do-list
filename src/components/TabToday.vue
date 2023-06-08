@@ -3,7 +3,8 @@
         <div v-for="task in tasksToday">
             <div>
                 {{ task.title }}
-                <TaskList/>
+                {{ task.done }}
+                <TaskList v-if="tasksToday"/>
             </div>
         </div>
     </div>
@@ -50,7 +51,6 @@ export default {
             const today = moment().format('DD.MM.YYYY'); 
             const formatedToday = this.formatNumber(today)
             return this.tasks.filter(t => t.selectedDate === formatedToday);
-            // return this.tasks.some(t => t.selectedDate === `${day}.${month}.${year}`);
         },
     }
 }

@@ -55,8 +55,15 @@
     </div>
  </div>
   <div v-else="activeTab === TABS.TODAY">
-    <TabToday
-    :tasks="scheduleTasks"/>
+    
+    <div>
+      <TaskList 
+      :tasks="tasksToday"
+      :colors="colors"
+        @checked-task="checkTask"
+        @edit-current-task="editTask"
+        @deleted-task="deleteTask"/>
+    </div>
   </div>
 
   <ModalForTask 
@@ -106,7 +113,8 @@ export default {
       TABS: {
         CALENDAR: 'shedule',
         TODAY: 'today'
-      }
+      },
+      today: this.formatNumber(moment().format('DD.MM.YYYY')),
     }
   },
   mounted() {
@@ -157,7 +165,10 @@ export default {
     deleteTask(task){
       TasksService.remove(task);
       this.tasks = TasksService.getAll();
-    }
+    },
+    formatNumber(num) {
+            return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
+        }
   }, 
   computed:{
     sortedTasks(){
@@ -173,6 +184,11 @@ export default {
     scheduleTasks(){
       return this.sortedTasks.filter(task => !task.done);
     },
+    tasksToday(){
+            const today = moment().format('DD.MM.YYYY'); 
+            const formatedToday = this.formatNumber(today)
+            return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
+        },
   }
 };
 </script>

@@ -2,8 +2,8 @@
     <div class="task__details d-flex gap-15px"  v-for="(task, index) in tasks">
         <div class="my-line" :class="{ 'my-line--last-task' : index === tasks.length - 1 }"></div>
 
-        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '' ]">
-          <span class="calendar-date">{{ task.selectedDate?.substring(2,0)}}</span>
+        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']">
+          <span class="calendar-date">{{ task.selectedDate?.substring(2,0) }}</span>
         </div>
 
         <div class="main-task d-flex flex-column w-100 gap-10px" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']">
@@ -58,7 +58,7 @@ export default {
       },
       colors:{
         type: Array
-      }
+      },
     },
     name: 'taskList',
     emits:['checked-task','edit-current-task', 'deleted-task'],
