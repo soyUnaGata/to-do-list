@@ -59,6 +59,7 @@
     <TaskList 
     :tasks="tasksToday"
     :colors="colors"
+    :activeToday="activeToday"
     @checked-task="checkTask"
     @edit-current-task="editTask"
     @deleted-task="deleteTask"/>
@@ -164,8 +165,8 @@ export default {
       this.tasks = TasksService.getAll();
     },
     formatNumber(num) {
-            return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
-        }
+      return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
+    }
   }, 
   computed:{
     sortedTasks(){

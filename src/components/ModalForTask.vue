@@ -44,7 +44,6 @@
 
                 <section class="modal-color d-flex w-100 justify-content-around">
                     <slot name="color">
-                        <!-- <li v-for="color in colors" @click="selectedColor = color" :class="['pick-color', color, selectedColor === color ? 'active' : '']"></li>  first variation-->
                         <RadioButton v-for="color in colors"  
                         v-model="task.selectedColor" 
                         :radio-id="`radio-${color.id}-${color.color}`" 
@@ -82,7 +81,6 @@ import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import RadioButton from './RadioButton.vue';
 import SelectDuration from './SelectDuration.vue';
-import tasksService from '@/services/local-storage/tasks-service';
 
 
 const date = ref(new Date());
@@ -99,19 +97,6 @@ export default defineComponent ({
         RadioButton,
         VueDatePicker,
         SelectDuration,
-    },
-    data() {
-        return {
-            // colors:[
-            //     "green",
-            //     "blue",
-            //     "pink",
-            //     "orange",
-            //     "red",
-            //     "yellow",
-            // ] for variation with array,
-           
-        }
     },
     methods: {
         close(){
@@ -174,16 +159,6 @@ input[type="text"].input-title,.input-place::placeholder{
         text-align: left;
         padding: 8px 10px;
 }
-/* .pick-color {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    list-style: none;
-} */
-
-/* .pick-color.active{
-    border: 2px solid red;
-} */
 textarea {
     color: var(--input-text);
     font-size: 16px;

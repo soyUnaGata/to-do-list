@@ -1,8 +1,8 @@
 <template>
     <div class="task__details d-flex gap-15px"  v-for="(task, index) in tasks">
-        <div class="my-line" :class="{ 'my-line--last-task' : index === tasks.length - 1 }"></div>
+        <div class="my-line" :class="[ {'my-line--last-task' : index === tasks.length - 1}]" v-if="!activeToday"></div>
 
-        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']">
+        <div class="date-style" :class="[getColorById(task.selectedColor), isPastDate(task) ? 'previous-date' : '']" v-if="!activeToday">
           <span class="calendar-date">{{ task.selectedDate?.substring(2,0) }}</span>
         </div>
 
@@ -22,10 +22,6 @@
             <button class="delete-task-btn" type="button" @click="deletedTask(task)">
               <img class="edit-task-icon" src="../assets/img/delete-icon.svg" alt="">
             </button>
-
-            <!-- <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 3.90532L3.90531 6.81063L8.7475 1" stroke="#BDBDBD" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg> -->
             </div>
           
           </div>
@@ -59,11 +55,19 @@ export default {
       colors:{
         type: Array
       },
+      activeToday:{
+        type: Function
+      },
     },
     name: 'taskList',
     emits:['checked-task','edit-current-task', 'deleted-task'],
     components:{
       ChekboxButton,
+    },
+    data(){
+      return {
+        today: this.formatNumber(moment().format('DD.MM.YYYY')),
+      }
     },
     methods: {
       checkedTask(task){
@@ -83,6 +87,9 @@ export default {
         const currentDate = moment();
         const taskDate = moment(task.selectedDate, 'DD.MM.YYYY');
         return currentDate.diff(taskDate, 'd') > 0;
+      },
+      formatNumber(num) {
+        return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
       }
     },
 }
