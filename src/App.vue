@@ -82,7 +82,6 @@ import ModalForTask from './components/ModalForTask.vue';
 import ChekboxButton from './components/ChekboxButton.vue';
 import TasksService from './services/local-storage/tasks-service';
 import TaskList from './components/TaskList.vue';
-import TabToday from './components/TabToday.vue';
 import moment from 'moment';
 
 export default {
@@ -91,7 +90,6 @@ export default {
     ModalForTask,
     ChekboxButton,
     TaskList,
-    TabToday,
   },
   data(){
     return {
@@ -184,10 +182,10 @@ export default {
       return this.sortedTasks.filter(task => !task.done);
     },
     tasksToday(){
-            const today = moment().format('DD.MM.YYYY'); 
-            const formatedToday = this.formatNumber(today)
-            return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
-        },
+      const today = moment().format('DD.MM.YYYY'); 
+      const formatedToday = this.formatNumber(today)
+      return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
+    },
   }
 };
 </script>

@@ -130,9 +130,6 @@ body {
     .days td.active::before {
         background-color: var(--main-calendar);
     }
-    /* .calendar {
-        background-color: var(--btn-dark);
-    } */
     .currentBtn {
         background-color: var(--btn-dark);
     }
@@ -252,17 +249,14 @@ body {
       
     .select__check__label--checked:after {
         content: "\2714"; 
-        /* content: "";  */
         position: absolute;
         left: 4px;
-        /* top: 3px; */
         font-size: 14px; 
         color: #fff; 
-        /* background-image: url(../img/checked-task.svg);
         height: 15px;
         background-size: 100%;
         width: 15px;
-        background-repeat: no-repeat; */ /*if we want other check img */
+        background-repeat: no-repeat; 
     }
     .task__details{
         position: relative;
@@ -292,19 +286,6 @@ body {
         border: 1px solid blur( 3.5px );
         color:  var( --past-date);
     }
-    /* .previous-date::before {
-        content: '';
-        width: 100%;
-        position: absolute;
-        z-index: 22;
-        height: 100%;
-        border-radius: 11px;
-        top: 0;
-        left: 0;
-        background: rgba( 6, 0, 0, 0.35 );
-        backdrop-filter: blur( 0.4px );
-        -webkit-backdrop-filter: blur( 0.4px );
-    } */
     .has-date::after {
         border-bottom: 1px solid var(--white);
         width: 15px;
