@@ -54,16 +54,15 @@
    
     </div>
  </div>
-  <div v-else="activeTab === TABS.TODAY">
-    
-    <div>
-      <TaskList 
-      :tasks="tasksToday"
-      :colors="colors"
-        @checked-task="checkTask"
-        @edit-current-task="editTask"
-        @deleted-task="deleteTask"/>
-    </div>
+  <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px" v-else="activeTab === TABS.TODAY">  
+    <div v-if="tasksToday .length === 0"> You don't have tasks</div> 
+    <TaskList 
+    :tasks="tasksToday"
+    :colors="colors"
+    @checked-task="checkTask"
+    @edit-current-task="editTask"
+    @deleted-task="deleteTask"/>
+   
   </div>
 
   <ModalForTask 
