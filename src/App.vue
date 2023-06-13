@@ -15,7 +15,7 @@
       <button type="button" class="main-btn today" :class="{ 'currentBtn': activeTab === TABS.TODAY }" @click="activeToday">Today</button>
     </div>
 
-    <div class="wrapper margin-top-2rem" v-if="activeTab">
+    <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
       <div class="current-calendar">
         <Calendar
         :tasks="scheduleTasks"/>
@@ -55,7 +55,16 @@
     </div>
  </div>
   <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px" v-else="activeTab === TABS.TODAY">  
-    <div v-if="tasksToday .length === 0"> You don't have tasks</div> 
+    <div class="today-date__wrapper d-flex">
+      <div class="data-right-side h-100"></div>
+      <div class="date-text__style d-flex flex-column align-items-center w-100">
+        <div class="today-date-text today-date">{{ todayDate }}</div>
+        <div class="today-date-text today-day">{{todayDay}}</div>
+      </div>
+    </div>
+
+    <div class="task-not-exist" v-if="tasksToday .length === 0"> You don't have tasks</div> 
+   
     <TaskList 
     :tasks="tasksToday"
     :colors="colors"
@@ -113,6 +122,8 @@ export default {
         TODAY: 'today'
       },
       today: this.formatNumber(moment().format('DD.MM.YYYY')),
+      todayDate: moment().format("MMMM Do YYYY"),
+      todayDay:  moment().format("dddd"),
     }
   },
   mounted() {

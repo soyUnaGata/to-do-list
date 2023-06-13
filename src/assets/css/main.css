@@ -295,6 +295,30 @@ body {
         position: absolute;
         left: 4px;
     }
+    .today-date__wrapper{
+        background-color: var(--white);
+        height: 90px;
+        border-radius: 12px;
+    }
+    .date-text__style {
+        padding: 10px;
+    }
+    .data-right-side {
+        background-color: var(--btn-dark);
+        width: 26px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .today-date-text{
+        color: var(--input-text);
+    }
+    .today-date {
+        font-size: 14px;
+    }
+    .today-day{
+        font-weight: var(--fw-600);
+        font-size: 35px;
+    }
 
 
 }
