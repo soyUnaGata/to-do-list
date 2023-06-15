@@ -11,8 +11,12 @@
 
   <main class="main">
     <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center gap-20px">
-      <button type="button" class="main-btn calendar" :class="{ 'currentBtn': activeTab === TABS.CALENDAR }" @click=" activeShedule">Schedule</button>
-      <button type="button" class="main-btn today" :class="{ 'currentBtn': activeTab === TABS.TODAY }" @click="activeToday">Today</button>
+      <button type="button" class="main-btn calendar" 
+      :class="{ 'currentBtn': activeTab === TABS.CALENDAR, 'slide-in-left' : activeTab === TABS.CALENDAR }"
+      @click="activeShedule">Schedule</button>
+      <button type="button" class="main-btn today" 
+      :class="{ 'currentBtn': activeTab === TABS.TODAY, 'slide-out-right': activeTab === TABS.TODAY }"
+      @click="activeToday">Today</button>
     </div>
 
     <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
@@ -177,7 +181,7 @@ export default {
     },
     formatNumber(num) {
       return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
-    }
+    },
   }, 
   computed:{
     sortedTasks(){

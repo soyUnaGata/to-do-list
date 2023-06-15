@@ -23,6 +23,7 @@
    --pick-blue:  #88abf6;
    --border-checkbox: #C68AFF;
    --for-summary-tasks: #9c33ff;
+   --data-text: #181212;
    --fw-400: 400;
    --fw-500: 500;
    --fw-600: 600;
@@ -296,7 +297,12 @@ body {
         left: 4px;
     }
     .today-date__wrapper{
-        background-color: var(--white);
+        /* background-color: var(--white); */
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5.3px);
+        -webkit-backdrop-filter: blur(5.3px);        
         height: 90px;
         border-radius: 12px;
     }
@@ -310,7 +316,7 @@ body {
         border-bottom-left-radius: 10px;
     }
     .today-date-text{
-        color: var(--input-text);
+        color: var(--data-text);
     }
     .today-date {
         font-size: 14px;
@@ -318,6 +324,15 @@ body {
     .today-day{
         font-weight: var(--fw-600);
         font-size: 35px;
+    }
+    .slide-in-left {
+        transform: translateX(20%);
+        transition: transform 0.3s ease-in;
+    }
+      
+    .slide-out-right {
+        transform: translateX(-20%);
+        transition: transform 0.3s ease-out;
     }
 
 
