@@ -41,7 +41,8 @@
     </div>
 
     <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
-      <div v-if="scheduleTasks.length === 0"> You don't have tasks</div>
+      <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
+      v-if="scheduleTasks.length === 0"> You don't have tasks</div>
       <TaskList  v-if="showCompleted" 
         :tasks="completedTasks"
         :colors="colors"
@@ -67,7 +68,8 @@
       </div>
     </div>
 
-    <div class="task-not-exist" v-if="tasksToday .length === 0"> You don't have tasks</div> 
+    <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
+    v-if="tasksToday .length === 0"> You don't have tasks</div> 
    
     <TaskList 
     :tasks="tasksToday"

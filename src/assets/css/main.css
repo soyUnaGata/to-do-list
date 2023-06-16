@@ -297,14 +297,18 @@ body {
         left: 4px;
     }
     .today-date__wrapper{
-        /* background-color: var(--white); */
-        background: rgba(255, 255, 255, 0.6);
+        /* background: rgba(255, 255, 255, 0.6); */
         border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(5.3px);
-        -webkit-backdrop-filter: blur(5.3px);        
+        -webkit-backdrop-filter: blur(5.3px);         */
         height: 90px;
         border-radius: 12px;
+        background: rgba( 194, 255, 255, 0.85 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 16px );
+        -webkit-backdrop-filter: blur( 16px );
+        border-radius: 10px;
     }
     .date-text__style {
         padding: 10px;
@@ -333,6 +337,15 @@ body {
     .slide-out-right {
         transform: translateX(-20%);
         transition: transform 0.3s ease-out;
+    }
+    .task-not-exist{
+        height: 50px;
+        background: rgba( 194, 255, 255, 0.55 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 16px );
+        -webkit-backdrop-filter: blur( 16px );
+        border-radius: 10px;
+        color: var(--data-text);
     }
 
 
