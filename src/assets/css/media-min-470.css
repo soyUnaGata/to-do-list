@@ -1,0 +1,31 @@
+@media (min-width: 470px){
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 1.5rem 3rem;
+    }
+    .headline, .add-new-task {
+        font-weight: var(--fw-1000);
+        font-size: 1.6rem; 
+    }
+    .add-new-task {
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
+    .schedule {
+        background-color: var(--btn-blue);
+        margin: 1rem 3.5rem;
+        padding: 9px;
+        gap: 30px;
+    }
+    .main-btn {
+        background-color: transparent;
+        border: none;
+        padding: 8px 33px;
+        color: var(--white);
+        font-weight: var(--fw-700);
+    }
+    .currentBtn {
+        background-color: var(--btn-dark);
+    }
+}
