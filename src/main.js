@@ -6,10 +6,12 @@ import './assets/css/globals.css'
 import './assets/css/media-min-470.css'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import './assets/css/vue-datepicker.css';
+import store  from './store'
 
 const app = createApp(App);
 
 app.component('VueDatePicker', VueDatePicker);
+app.use(store);
 
 app.mount('#app');
 
