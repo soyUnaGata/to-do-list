@@ -22,7 +22,7 @@
     <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
       <div class="current-calendar">
         <Calendar
-        :tasks="scheduleTasks"/>
+        :tasks="allTasks"/>
       </div>
     </div>
   </main>
@@ -33,27 +33,29 @@
       <h3 class="headline__3">Schedule</h3>
       <div class="show__completed__details d-flex align-items-center gap-5px">
         <p class="completed__tasks-done">Done</p>
-        <p class="completed__tasks-count">{{ completedTasks.length }}</p>
+        <p class="completed__tasks-count">{{ }}</p>
         <span>from</span>
-        <p class="summary__tasks">{{ tasks.length }}</p> 
-        <input class="switch" name="switchCompleted" type="checkbox" v-model="showCompleted"/>
+        <p class="summary__tasks">{{ allTasks.length }}</p> 
+        <!-- <input class="switch" name="switchCompleted" type="checkbox" v-model="showCompleted"/> -->
       </div>
     </div>
 
     <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
       <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
-      v-if="scheduleTasks.length === 0"> You don't have tasks</div>
-      <TaskList  v-if="showCompleted" 
-        :tasks="completedTasks"
+      v-if="allTasks.length === 0"> You don't have tasks</div>
+      <TaskList 
+      
+        :tasks="allTasks"
         :colors="colors"
         @checked-task="checkTask"
-        @deleted-task="deleteTask"/>
-      <TaskList v-else 
+        @deleted-task="deleteTask"
+        />
+      <!-- <TaskList v-else 
         :tasks="scheduleTasks"
         :colors="colors"
         @checked-task="checkTask"
         @edit-current-task="editTask"
-        @deleted-task="deleteTask"/>
+        @deleted-task="deleteTask"/> -->
     
     </div>
    
@@ -133,7 +135,7 @@ export default {
     }
   },
   mounted() {
-    this.tasks = TasksService.getAll();
+    this.tasks = this.$store.dispatch('fetchTasks');
     this.activeTab = this.TABS.CALENDAR
   },
   methods:{
@@ -148,10 +150,10 @@ export default {
         TasksService.update(task);
       }else{
         task.id = Math.floor(Math.random() * 100000000) + 1;
-        TasksService.create(task);
+        this.$store.dispatch('createTask', task);
       } 
 
-      this.tasks = TasksService.getAll();
+      this.tasks = this.$store.dispatch('fetchTasks');
       this.showModal = false;
     },
     checkTask(task){
@@ -186,24 +188,28 @@ export default {
     },
   }, 
   computed:{
+    allTasks() {
+      return this.$store.getters.allTasks;
+    },
     sortedTasks(){
-      return this.tasks.sort((a, b) => {
+      return this.allTasks.sort((a, b) => {
         const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
         const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
         return aDate.isBefore(bDate) ? -1 : 1;
       });
     },
-    completedTasks(){
-      return this.sortedTasks.filter(task => task.done)
-    },
-    scheduleTasks(){
-      return this.sortedTasks.filter(task => !task.done);
-    },
+    // completedTasks(){
+    //   return this.sortedTasks.filter(task => task.done)
+    // },
+    // scheduleTasks(){
+    //   return this.sortedTasks.filter(task => !task.done);
+    // },
     tasksToday(){
       const today = moment().format('DD.MM.YYYY'); 
       const formatedToday = this.formatNumber(today)
       return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
     },
-  }
+  },
+
 };
 </script>
