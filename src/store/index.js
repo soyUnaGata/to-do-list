@@ -9,23 +9,37 @@ export default createStore({
     allTasks(state) {
       return state.tasks;
     },
+    // updateCurrentTask: (state) => (id) => {
+    //   console.log(state.tasks.find(task => task.id === id))
+    //   return state.tasks.find(task => task.id === id);
+    // }
   },
   mutations: {
     SET_TASKS(state, tasks) {
       state.tasks = tasks;
     },
     ADD_TASK(state, task){
-        state.tasks.push(task)
+      state.tasks.push(task)
+    },
+    UPDATE_TASK(state, updatedTask){
+      const index = state.tasks.findIndex(t => t.id === updatedTask.id);
+      if(index !== -1){
+        state.tasks.splice(index, 1, updatedTask)
+      }
     }
   },
   actions: {
     fetchTasks({commit}){
-        const tasks = TasksService.getAll();
-        commit('SET_TASKS', tasks)
+      const tasks = TasksService.getAll();
+      commit('SET_TASKS', tasks)
     },
     createTask({commit}, task){
-        const createdTask = TasksService.create(task);
-        commit('ADD_TASK', createdTask)
+      const createdTask = TasksService.create(task);
+      commit('ADD_TASK', createdTask)
+    },
+    updateTask({commit}, task){
+      const updatedTask = TasksService.update(task);
+      commit('UPDATE_TASK', updatedTask)
     }
   },
 });

@@ -3,95 +3,77 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav> -->
-<div class="container">
-  <header class="header d-flex justify-content-between align-items-center">
-    <h3 class="headline">a.tiempo</h3>
-    <span class="add-new-task" @click="addTask">+</span>
-  </header>
+  <div class="container">
+    <header class="header d-flex justify-content-between align-items-center">
+      <h3 class="headline">a.tiempo</h3>
+      <span class="add-new-task" @click="addTask">+</span>
+    </header>
 
-  <main class="main">
-    <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center gap-20px">
-      <button type="button" class="main-btn calendar" 
-      :class="{ 'currentBtn': activeTab === TABS.CALENDAR, 'slide-in-left' : activeTab === TABS.CALENDAR }"
-      @click="activeShedule">Schedule</button>
-      <button type="button" class="main-btn today" 
-      :class="{ 'currentBtn': activeTab === TABS.TODAY, 'slide-out-right': activeTab === TABS.TODAY }"
-      @click="activeToday">Today</button>
-    </div>
+    <main class="main">
+      <div class="schedule margin-top-2-5rem d-flex align-items-center justify-content-center gap-20px">
+        <button type="button" class="main-btn calendar"
+          :class="{ 'currentBtn': activeTab === TABS.CALENDAR, 'slide-in-left': activeTab === TABS.CALENDAR }"
+          @click="activeShedule">Schedule</button>
+        <button type="button" class="main-btn today"
+          :class="{ 'currentBtn': activeTab === TABS.TODAY, 'slide-out-right': activeTab === TABS.TODAY }"
+          @click="activeToday">Today</button>
+      </div>
 
-    <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
-      <div class="current-calendar">
-        <Calendar
-        :tasks="allTasks"/>
+      <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
+        <div class="current-calendar">
+          <Calendar :tasks="allTasks" />
+        </div>
+      </div>
+    </main>
+
+    <div v-if="activeTab === TABS.CALENDAR">
+      <div class="calendar__details margin-top-3rem">
+        <div class="schedule__details d-flex justify-content-between">
+          <h3 class="headline__3">Schedule</h3>
+          <div class="show__completed__details d-flex align-items-center gap-5px">
+            <p class="completed__tasks-done">Done</p>
+            <p class="completed__tasks-count">{{ }}</p>
+            <span>from</span>
+            <p class="summary__tasks">{{ allTasks.length }}</p>
+            <input class="switch" name="switchCompleted" type="checkbox" v-model="showCompleted" />
+          </div>
+        </div>
+
+        <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
+          <div v-if="allTasks.length === 0" 
+          class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem"
+          > You don't have tasks</div>
+          <TaskList v-if="allTasks.length === 0" :tasks="allTasks" :colors="colors" @checked-task="checkTask" @deleted-task="deleteTask" />
+          <TaskList v-else
+            :tasks="sortedTasks"
+            :colors="colors"
+            @checked-task="checkTask"
+            @edit-current-task="editTask"
+            @deleted-task="deleteTask"/>
+          </div>
+
       </div>
     </div>
-  </main>
-
- <div v-if="activeTab === TABS.CALENDAR" >
-    <div class="calendar__details margin-top-3rem">
-    <div class="schedule__details d-flex justify-content-between">
-      <h3 class="headline__3">Schedule</h3>
-      <div class="show__completed__details d-flex align-items-center gap-5px">
-        <p class="completed__tasks-done">Done</p>
-        <p class="completed__tasks-count">{{ }}</p>
-        <span>from</span>
-        <p class="summary__tasks">{{ allTasks.length }}</p> 
-        <!-- <input class="switch" name="switchCompleted" type="checkbox" v-model="showCompleted"/> -->
+    <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px" v-else="activeTab === TABS.TODAY">
+      <div class="today-date__wrapper d-flex">
+        <div class="data-right-side h-100"></div>
+        <div class="date-text__style d-flex flex-column align-items-center w-100">
+          <div class="today-date-text today-date">{{ todayDate }}</div>
+          <div class="today-date-text today-day">{{ todayDay }}</div>
+        </div>
       </div>
+
+      <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem"
+        v-if="tasksToday.length === 0"> You don't have tasks</div>
+
+      <TaskList :tasks="tasksToday" :colors="colors" :activeToday="activeToday" @checked-task="checkTask"
+        @edit-current-task="editTask" @deleted-task="deleteTask" />
+
     </div>
 
-    <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
-      <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
-      v-if="allTasks.length === 0"> You don't have tasks</div>
-      <TaskList 
-      
-        :tasks="allTasks"
-        :colors="colors"
-        @checked-task="checkTask"
-        @deleted-task="deleteTask"
-        />
-      <!-- <TaskList v-else 
-        :tasks="scheduleTasks"
-        :colors="colors"
-        @checked-task="checkTask"
-        @edit-current-task="editTask"
-        @deleted-task="deleteTask"/> -->
-    
-    </div>
-   
-    </div>
- </div>
-  <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px" v-else="activeTab === TABS.TODAY">  
-    <div class="today-date__wrapper d-flex">
-      <div class="data-right-side h-100"></div>
-      <div class="date-text__style d-flex flex-column align-items-center w-100">
-        <div class="today-date-text today-date">{{ todayDate }}</div>
-        <div class="today-date-text today-day">{{todayDay}}</div>
-      </div>
-    </div>
-
-    <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
-    v-if="tasksToday .length === 0"> You don't have tasks</div> 
-   
-    <TaskList 
-    :tasks="tasksToday"
-    :colors="colors"
-    :activeToday="activeToday"
-    @checked-task="checkTask"
-    @edit-current-task="editTask"
-    @deleted-task="deleteTask"/>
-   
+    <ModalForTask v-if="showModal" :colors="colors" @close="showModal = false" @save="saveTask" :task="selectedTask">
+    </ModalForTask>
   </div>
-
-  <ModalForTask 
-    v-if="showModal" 
-    :colors="colors"
-    @close = "showModal = false"
-    @save="saveTask"
-    :task="selectedTask">
-  </ModalForTask>
-</div>
-
 </template>
 
 <script>
@@ -103,13 +85,13 @@ import TaskList from './components/TaskList.vue';
 import moment from 'moment';
 
 export default {
-  components:{
+  components: {
     Calendar,
     ModalForTask,
     ChekboxButton,
     TaskList,
   },
-  data(){
+  data() {
     return {
       showModal: false,
       tasks: [],
@@ -131,36 +113,36 @@ export default {
       },
       today: this.formatNumber(moment().format('DD.MM.YYYY')),
       todayDate: moment().format("MMMM Do YYYY"),
-      todayDay:  moment().format("dddd"),
+      todayDay: moment().format("dddd"),
     }
   },
   mounted() {
     this.tasks = this.$store.dispatch('fetchTasks');
     this.activeTab = this.TABS.CALENDAR
   },
-  methods:{
-    activeShedule(){
+  methods: {
+    activeShedule() {
       this.activeTab = this.TABS.CALENDAR
     },
-    activeToday(){
+    activeToday() {
       this.activeTab = this.TABS.TODAY
     },
-    saveTask(task){
-      if(this.selectedTask.id){
-        TasksService.update(task);
-      }else{
+    saveTask(task) {
+      if (this.selectedTask.id) {
+        this.$store.dispatch('updateTask', task);        
+      } else {
         task.id = Math.floor(Math.random() * 100000000) + 1;
         this.$store.dispatch('createTask', task);
-      } 
+      }
 
       this.tasks = this.$store.dispatch('fetchTasks');
       this.showModal = false;
     },
-    checkTask(task){
+    checkTask(task) {
       this.task = task
       TasksService.switchCompleteState(task);
     },
-    addTask(){
+    addTask() {
       this.selectedTask = {
         id: null,
         title: '',
@@ -175,23 +157,23 @@ export default {
       };
       this.showModal = true;
     },
-    editTask(task){
+    editTask(task) {
       this.selectedTask = Object.assign({}, task);
       this.showModal = true
     },
-    deleteTask(task){
+    deleteTask(task) {
       TasksService.remove(task);
       this.tasks = TasksService.getAll();
     },
     formatNumber(num) {
       return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
     },
-  }, 
-  computed:{
+  },
+  computed: {
     allTasks() {
       return this.$store.getters.allTasks;
     },
-    sortedTasks(){
+    sortedTasks() {
       return this.allTasks.sort((a, b) => {
         const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
         const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
@@ -204,8 +186,8 @@ export default {
     // scheduleTasks(){
     //   return this.sortedTasks.filter(task => !task.done);
     // },
-    tasksToday(){
-      const today = moment().format('DD.MM.YYYY'); 
+    tasksToday() {
+      const today = moment().format('DD.MM.YYYY');
       const formatedToday = this.formatNumber(today)
       return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
     },

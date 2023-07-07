@@ -9,20 +9,20 @@ class TasksService {
         return JSON.parse(JSON.stringify(this.tasks))
     }
 
-    get(){}
+    get(taskId){
+        return this.getAll().find(t => t.id === taskId);
+    }
 
     update(task){
         let taskIndex = this.tasks.findIndex(item => item.id === task.id);
+        
         if (taskIndex !== -1) {
-            this.tasks[taskIndex] = task;
+            this.tasks[taskIndex] = task
             localStorage.setItem('tasks', JSON.stringify(this.tasks));
+            return this.get(this.tasks[taskIndex].id);
         }
-    }
 
-    edit(task){
-        const taskId = this.tasks.filter(item => item.id == task.id);
-        // taskId.edit = true;
-        localStorage.setItem('tasks', JSON.stringify(this.tasks))
+        return null;
     }
 
     switchCompleteState(task){
@@ -38,12 +38,13 @@ class TasksService {
             this.tasks.splice(index, 1)
             localStorage.setItem('tasks', JSON.stringify(this.tasks))
         }
-     
     }
 
     create(task){
         this.tasks.push(task);
-        localStorage.setItem('tasks', JSON.stringify(this.tasks))
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+
+        return this.get(this.tasks.id);
     }
 }
 
