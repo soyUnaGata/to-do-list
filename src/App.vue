@@ -189,7 +189,7 @@ export default {
     tasksToday() {
       const today = moment().format('DD.MM.YYYY');
       const formatedToday = this.formatNumber(today)
-      return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
+      return this. allTasks.filter(t => t.selectedDate === formatedToday && !t.done);
     },
   },
 
