@@ -12,7 +12,11 @@ export default createStore({
     // updateCurrentTask: (state) => (id) => {
     //   console.log(state.tasks.find(task => task.id === id))
     //   return state.tasks.find(task => task.id === id);
-    // }
+    // },
+    isTaskCompleted(state){
+      return state.tasks.filter(task => task.done)
+    },
+    
   },
   mutations: {
     SET_TASKS(state, tasks) {
@@ -24,7 +28,7 @@ export default createStore({
     UPDATE_TASK(state, updatedTask){
       const index = state.tasks.findIndex(t => t.id === updatedTask.id);
       if(index !== -1){
-        state.tasks.splice(index, 1, updatedTask)
+        state.tasks[index] = updatedTask;
       }
     }
   },

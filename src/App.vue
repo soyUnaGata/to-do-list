@@ -32,7 +32,7 @@
           <h3 class="headline__3">Schedule</h3>
           <div class="show__completed__details d-flex align-items-center gap-5px">
             <p class="completed__tasks-done">Done</p>
-            <p class="completed__tasks-count">{{ }}</p>
+            <p class="completed__tasks-count">{{completedTasks.length }}</p>
             <span>from</span>
             <p class="summary__tasks">{{ allTasks.length }}</p>
             <input class="switch" name="switchCompleted" type="checkbox" v-model="showCompleted" />
@@ -43,9 +43,9 @@
           <div v-if="allTasks.length === 0" 
           class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem"
           > You don't have tasks</div>
-          <TaskList v-if="allTasks.length === 0" :tasks="allTasks" :colors="colors" @checked-task="checkTask" @deleted-task="deleteTask" />
+          <TaskList v-if="showCompleted" :tasks="completedTasks" :colors="colors" @checked-task="checkTask" @deleted-task="deleteTask" />
           <TaskList v-else
-            :tasks="sortedTasks"
+            :tasks="scheduleTasks"
             :colors="colors"
             @checked-task="checkTask"
             @edit-current-task="editTask"
@@ -79,7 +79,6 @@
 <script>
 import Calendar from './components/Calendar';
 import ModalForTask from './components/ModalForTask.vue';
-import ChekboxButton from './components/ChekboxButton.vue';
 import TasksService from './services/local-storage/tasks-service';
 import TaskList from './components/TaskList.vue';
 import moment from 'moment';
@@ -88,7 +87,6 @@ export default {
   components: {
     Calendar,
     ModalForTask,
-    ChekboxButton,
     TaskList,
   },
   data() {
@@ -139,8 +137,7 @@ export default {
       this.showModal = false;
     },
     checkTask(task) {
-      this.task = task
-      TasksService.switchCompleteState(task);
+      this.$store.dispatch('updateTask', Object.assign(task, { done: !task.done }))
     },
     addTask() {
       this.selectedTask = {
@@ -174,23 +171,22 @@ export default {
       return this.$store.getters.allTasks;
     },
     sortedTasks() {
-      return this.allTasks.sort((a, b) => {
-        const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
-        const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
-        return aDate.isBefore(bDate) ? -1 : 1;
-      });
+      return this.allTasks;
     },
-    // completedTasks(){
-    //   return this.sortedTasks.filter(task => task.done)
-    // },
-    // scheduleTasks(){
-    //   return this.sortedTasks.filter(task => !task.done);
-    // },
+    completedTasks(){
+      return this.sortedTasks.filter(task => task.done)
+    },
+    scheduleTasks(){
+      return this.sortedTasks.filter(task => !task.done);
+    },
     tasksToday() {
       const today = moment().format('DD.MM.YYYY');
       const formatedToday = this.formatNumber(today)
-      return this. allTasks.filter(t => t.selectedDate === formatedToday && !t.done);
+      return this.allTasks.filter(t => t.selectedDate === formatedToday && !t.done);
     },
+    isTaskCompleted() {
+      return this.$store.getters.isTaskCompleted;
+    }
   },
 
 };

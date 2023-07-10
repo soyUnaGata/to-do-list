@@ -15,10 +15,7 @@
               @click="editCurrentTask(task)">
                 <img class="edit-task-icon" src="../assets/img/edit-icon-light.svg" alt="">
               </button>
-            <ChekboxButton
-              v-model="task.done" :check-id="task.id"
-              @click="checkedTask(task)"
-            />
+            <ReadonlyChekbox v-model="task.done" :check-id="task.id" @change="$emit('checked-task', task)"/>
             <button class="delete-task-btn" type="button" @click="deletedTask(task)">
               <img class="edit-task-icon" src="../assets/img/delete-icon.svg" alt="">
             </button>
@@ -44,7 +41,7 @@
 </template>
 
 <script>
-import ChekboxButton from './ChekboxButton.vue';
+import ReadonlyChekbox from './ReadonlyChekbox.vue';
 import moment from 'moment';
 
 export default {
@@ -62,7 +59,7 @@ export default {
     name: 'taskList',
     emits:['checked-task','edit-current-task', 'deleted-task'],
     components:{
-      ChekboxButton,
+      ReadonlyChekbox,
     },
     data(){
       return {
@@ -70,9 +67,6 @@ export default {
       }
     },
     methods: {
-      checkedTask(task){
-        this.$emit('checked-task', task)
-      },
       editCurrentTask(task){
         this.$emit('edit-current-task', task)
       },

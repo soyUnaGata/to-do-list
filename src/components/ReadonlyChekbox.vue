@@ -17,21 +17,17 @@ export default defineComponent({
       default:false
     },
     checkId: {
-      type: String,
+    //   type: String,
+      type: Number,
       required: true
     }
   },
     emits: ['update:modelValue'],
-    name: 'ChekboxButton',
+    name: 'ReadonlyChekbox',
     computed:{
-        statusValue: {
-            get(){
-                return this.modelValue;
-            },
-            set(val){
-                this.$emit('update:modelValue', val)
-            }
-        }
+      statusValue(){
+        return this.modelValue;
+      }
     }
 })
 </script>
