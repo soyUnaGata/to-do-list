@@ -159,8 +159,8 @@ export default {
       this.showModal = true
     },
     deleteTask(task) {
-      TasksService.remove(task);
-      this.tasks = TasksService.getAll();
+      this.$store.dispatch('deleteTask', task);
+      this.tasks = this.$store.dispatch('fetchTasks');
     },
     formatNumber(num) {
       return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
@@ -171,6 +171,11 @@ export default {
       return this.$store.getters.allTasks;
     },
     sortedTasks() {
+      // return this.tasks.sort((a, b) => {
+      //   const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
+      //   const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
+      //   return aDate.isBefore(bDate) ? -1 : 1;
+      // })
       return this.allTasks;
     },
     completedTasks(){

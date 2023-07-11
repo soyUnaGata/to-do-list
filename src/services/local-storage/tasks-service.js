@@ -28,7 +28,8 @@ class TasksService {
         const index = this.tasks.findIndex(item => item.id == task.id);
         if(index !== -1){
             this.tasks.splice(index, 1)
-            localStorage.setItem('tasks', JSON.stringify(this.tasks))
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
+            return this.get(this.tasks[index].id)
         }
     }
 

@@ -9,14 +9,9 @@ export default createStore({
     allTasks(state) {
       return state.tasks;
     },
-    // updateCurrentTask: (state) => (id) => {
-    //   console.log(state.tasks.find(task => task.id === id))
-    //   return state.tasks.find(task => task.id === id);
-    // },
     isTaskCompleted(state){
       return state.tasks.filter(task => task.done)
     },
-    
   },
   mutations: {
     SET_TASKS(state, tasks) {
@@ -30,6 +25,9 @@ export default createStore({
       if(index !== -1){
         state.tasks[index] = updatedTask;
       }
+    },
+    DELETE_TASK(state, deletedTask){
+      state.tasks = state.tasks.filter(t => t.id !== deletedTask.id)
     }
   },
   actions: {
@@ -44,6 +42,12 @@ export default createStore({
     updateTask({commit}, task){
       const updatedTask = TasksService.update(task);
       commit('UPDATE_TASK', updatedTask)
+    },
+    deleteTask({commit}, task){
+      const deletedTask = TasksService.remove(task);
+      if(deletedTask){
+        commit('DELETE_TASK', deletedTask)
+      }
     }
   },
 });
