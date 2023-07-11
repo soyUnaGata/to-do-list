@@ -79,7 +79,6 @@
 <script>
 import Calendar from './components/Calendar';
 import ModalForTask from './components/ModalForTask.vue';
-import TasksService from './services/local-storage/tasks-service';
 import TaskList from './components/TaskList.vue';
 import moment from 'moment';
 
@@ -171,12 +170,7 @@ export default {
       return this.$store.getters.allTasks;
     },
     sortedTasks() {
-      // return this.tasks.sort((a, b) => {
-      //   const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
-      //   const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
-      //   return aDate.isBefore(bDate) ? -1 : 1;
-      // })
-      return this.allTasks;
+      return this.$store.getters.sortByDate;
     },
     completedTasks(){
       return this.sortedTasks.filter(task => task.done)

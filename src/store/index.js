@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import TasksService from "@/services/local-storage/tasks-service";
+import moment from "moment/moment";
 
 export default createStore({
   state: {
@@ -8,6 +9,14 @@ export default createStore({
   getters: {
     allTasks(state) {
       return state.tasks;
+    },
+    sortByDate(state){
+      let copyOfTask = JSON.parse(JSON.stringify(state.tasks));
+      return copyOfTask.sort((a, b) => {
+        const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
+        const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
+        return aDate.isBefore(bDate) ? -1 : 1;
+      })
     },
     isTaskCompleted(state){
       return state.tasks.filter(task => task.done)
