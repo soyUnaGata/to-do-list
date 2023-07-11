@@ -10,9 +10,9 @@ export default createStore({
     allTasks(state) {
       return state.tasks;
     },
-    sortByDate(state){
-      let copyOfTask = JSON.parse(JSON.stringify(state.tasks));
-      return copyOfTask.sort((a, b) => {
+    sortedTasks(state){
+      const tasks = JSON.parse(JSON.stringify(state.tasks));
+      return tasks.sort((a, b) => {
         const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
         const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
         return aDate.isBefore(bDate) ? -1 : 1;

@@ -170,7 +170,7 @@ export default {
       return this.$store.getters.allTasks;
     },
     sortedTasks() {
-      return this.$store.getters.sortByDate;
+      return this.$store.getters.sortedTasks;
     },
     completedTasks(){
       return this.sortedTasks.filter(task => task.done)
