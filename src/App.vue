@@ -81,6 +81,8 @@ import Calendar from './components/Calendar';
 import ModalForTask from './components/ModalForTask.vue';
 import TaskList from './components/TaskList.vue';
 import moment from 'moment';
+import {DATES} from './common/constants.js';
+import {formatNumber} from './common/helper.js';
 
 export default {
   components: {
@@ -108,9 +110,9 @@ export default {
         CALENDAR: 'shedule',
         TODAY: 'today'
       },
-      today: this.formatNumber(moment().format('DD.MM.YYYY')),
-      todayDate: moment().format("MMMM Do YYYY"),
-      todayDay: moment().format("dddd"),
+      today: formatNumber(moment().format(DATES.FULL_FORMAT)),
+      todayDate: moment().format(DATES.FULL_MONTH),
+      todayDay: moment().format(DATES.DAY),
     }
   },
   mounted() {
@@ -161,9 +163,6 @@ export default {
       this.$store.dispatch('deleteTask', task);
       this.tasks = this.$store.dispatch('fetchTasks');
     },
-    formatNumber(num) {
-      return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
-    },
   },
   computed: {
     allTasks() {
@@ -179,8 +178,8 @@ export default {
       return this.sortedTasks.filter(task => !task.done);
     },
     tasksToday() {
-      const today = moment().format('DD.MM.YYYY');
-      const formatedToday = this.formatNumber(today)
+      const today = moment().format(DATES.FULL_FORMAT);
+      const formatedToday = formatNumber(today)
       return this.allTasks.filter(t => t.selectedDate === formatedToday && !t.done);
     },
     isTaskCompleted() {

@@ -13,7 +13,7 @@
               <button class="edit-task-btn" type="button" 
               :class="{ 'hide-component': task.done }"
               @click="editCurrentTask(task)">
-                <img class="edit-task-icon" src="../assets/img/edit-icon-light.svg" alt="">
+                <img class="edit-task-icon" src="../assets/img/edit-icon-light.svg" alt="Edit">
               </button>
             <ReadonlyChekbox v-model="task.done" :check-id="task.id" @change="$emit('checked-task', task)"/>
             <button class="delete-task-btn" type="button" @click="deletedTask(task)">
@@ -43,6 +43,7 @@
 <script>
 import ReadonlyChekbox from './ReadonlyChekbox.vue';
 import moment from 'moment';
+import { DATES } from '@/common/constants';
 
 export default {
     props:{
@@ -61,11 +62,6 @@ export default {
     components:{
       ReadonlyChekbox,
     },
-    data(){
-      return {
-        today: this.formatNumber(moment().format('DD.MM.YYYY')),
-      }
-    },
     methods: {
       editCurrentTask(task){
         this.$emit('edit-current-task', task)
@@ -79,12 +75,9 @@ export default {
       },
       isPastDate(task){
         const currentDate = moment();
-        const taskDate = moment(task.selectedDate, 'DD.MM.YYYY');
+        const taskDate = moment(task.selectedDate, DATES.FULL_FORMAT);
         return currentDate.diff(taskDate, 'd') > 0;
       },
-      formatNumber(num) {
-        return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
-      }
     },
 }
 </script>

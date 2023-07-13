@@ -24,7 +24,7 @@
 
 
 <script>
-import moment from 'moment';
+import {formatNumber} from '../common/helper.js';
 
     export default({
         props:{
@@ -108,14 +108,11 @@ import moment from 'moment';
                 this.weeks = weeks;
             },
             hasTasks(date){
-                const day = this.formatNumber(date.getDate());
-                const month = this.formatNumber(date.getMonth() + 1) ;
+                const day = formatNumber(date.getDate());
+                const month = formatNumber(date.getMonth() + 1) ;
                 const year = date.getFullYear();
                 return this.tasks.some(t => t.selectedDate === `${day}.${month}.${year}`);
             },
-            formatNumber(num) {
-                return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
-            }
         },
         created(){
             const today = new Date();
