@@ -193,6 +193,7 @@ body {
         padding: 9px 13px;
         border-radius: 8px;
         position: relative;
+        overflow: auto;
     }
     .task-check{
         position: relative;
@@ -207,10 +208,15 @@ body {
     }
     .calendar-date__options {
         font-weight: var(--fw-700);
-        line-height: 100%;
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow: auto;
     }
     .task-option {
-        font-weight: var(--fw-400);   
+        font-weight: var(--fw-400); 
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow: auto;  
     }
     .checkbox-style {
         position: relative;
