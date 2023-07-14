@@ -185,6 +185,7 @@ export default {
     },
     filteredScheduleTasks(){
       if(!this.dateFilter) return this.scheduleTasks;
+      if(this.today == this.dateFilter) return this.scheduleTasks;
 
       return this.scheduleTasks.filter(t => t.selectedDate === this.dateFilter)
     },
