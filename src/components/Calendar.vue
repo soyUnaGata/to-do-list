@@ -12,7 +12,7 @@
                 <td v-for="dayTitle in dayTitles">{{ dayTitle }}</td>
             </tr>
             <tr class="days" v-for="week in weeks">
-                <td v-for="day in week" :class="{ 'active': day.isToday, 'inactive': !day.isCurrentMonth, 'has-date': day.hasTask }">
+                <td v-for="day in week" :class="{ 'active': day.isToday, 'inactive': !day.isCurrentMonth, 'has-date': day.hasTask }" @click="$emit('show-task', {day: day})">
                     <div></div>
                     {{ day.date }}</td>
             </tr>
@@ -93,7 +93,9 @@ import {formatNumber} from '../common/helper.js';
                     const day = {
                         date: start.getDate(),
                         isToday: isToday,
-                        isCurrentMonth: isCurrentMonth, 
+                        isCurrentMonth: isCurrentMonth,
+                        currentMonth: start.getMonth() + 1,
+                        currentYear: start.getFullYear(),
                         hasTask: this.hasTasks(start)
                     }
                     weekDays.push(day)
@@ -113,6 +115,7 @@ import {formatNumber} from '../common/helper.js';
                 const year = date.getFullYear();
                 return this.tasks.some(t => t.selectedDate === `${day}.${month}.${year}`);
             },
+            
         },
         created(){
             const today = new Date();

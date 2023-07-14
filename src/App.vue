@@ -21,7 +21,7 @@
 
       <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
         <div class="current-calendar">
-          <Calendar :tasks="allTasks" />
+          <Calendar :tasks="allTasks" @show-task="showTask"/>
         </div>
       </div>
     </main>
@@ -45,7 +45,7 @@
           > You don't have tasks</div>
           <TaskList v-if="showCompleted" :tasks="completedTasks" :colors="colors" @checked-task="checkTask" @deleted-task="deleteTask" />
           <TaskList v-else
-            :tasks="scheduleTasks"
+            :tasks="filteredScheduleTasks"
             :colors="colors"
             @checked-task="checkTask"
             @edit-current-task="editTask"
@@ -82,6 +82,8 @@ import ModalForTask from './components/ModalForTask.vue';
 import TaskList from './components/TaskList.vue';
 import moment from 'moment';
 import {DATES} from './common/constants.js';
+import {TABS} from './common/constants.js';
+
 import {formatNumber} from './common/helper.js';
 
 export default {
@@ -106,13 +108,11 @@ export default {
       task: [],
       selectedTask: null,
       activeTab: '',
-      TABS: {
-        CALENDAR: 'shedule',
-        TODAY: 'today'
-      },
+      TABS: TABS,
       today: formatNumber(moment().format(DATES.FULL_FORMAT)),
       todayDate: moment().format(DATES.FULL_MONTH),
       todayDay: moment().format(DATES.DAY),
+      dateFilter: ''
     }
   },
   mounted() {
@@ -163,6 +163,12 @@ export default {
       this.$store.dispatch('deleteTask', task);
       this.tasks = this.$store.dispatch('fetchTasks');
     },
+    showTask(day){
+      const formatedNum = formatNumber(day.day.date);
+      const formatedMonth = formatNumber(day.day.currentMonth);
+      const formatedYear = formatNumber(day.day.currentYear);
+      this.dateFilter = `${formatedNum}.${formatedMonth}.${formatedYear}`;
+    }
   },
   computed: {
     allTasks() {
@@ -177,6 +183,11 @@ export default {
     scheduleTasks(){
       return this.sortedTasks.filter(task => !task.done);
     },
+    filteredScheduleTasks(){
+      if(!this.dateFilter) return this.scheduleTasks;
+
+      return this.scheduleTasks.filter(t => t.selectedDate === this.dateFilter)
+    },
     tasksToday() {
       const today = moment().format(DATES.FULL_FORMAT);
       const formatedToday = formatNumber(today)
@@ -184,7 +195,8 @@ export default {
     },
     isTaskCompleted() {
       return this.$store.getters.isTaskCompleted;
-    }
+    },
+
   },
 
 };
