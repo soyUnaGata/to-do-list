@@ -170,4 +170,7 @@ textarea {
     height: 263px;
     resize: none;
 }
+.modal-duration{
+    position: relative;
+}
 </style>
