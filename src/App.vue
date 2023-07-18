@@ -99,6 +99,9 @@ import ChekboxButton from './components/ChekboxButton.vue';
 import TasksService from './services/local-storage/tasks-service';
 import TaskList from './components/TaskList.vue';
 import moment from 'moment';
+import {DATES} from './common/constants.js';
+import {TABS} from './common/constants.js';
+import {formatNumber} from './common/helper.js';
 
 export default {
   components:{
@@ -123,13 +126,10 @@ export default {
       task: [],
       selectedTask: null,
       activeTab: '',
-      TABS: {
-        CALENDAR: 'shedule',
-        TODAY: 'today'
-      },
-      today: this.formatNumber(moment().format('DD.MM.YYYY')),
-      todayDate: moment().format("MMMM Do YYYY"),
-      todayDay:  moment().format("dddd"),
+      TABS: TABS,
+      today: formatNumber(moment().format(DATES.FULL_FORMAT)),
+      todayDate: moment().format(DATES.FULL_MONTH),
+      todayDay: moment().format(DATES.DAY),
     }
   },
   mounted() {
@@ -181,15 +181,12 @@ export default {
       TasksService.remove(task);
       this.tasks = TasksService.getAll();
     },
-    formatNumber(num) {
-      return num >= 10 ? num.toString() : num.toString().padStart(2, '0')
-    },
   }, 
   computed:{
     sortedTasks(){
       return this.tasks.sort((a, b) => {
-        const aDate = moment(a.selectedDate, 'DD.MM.YYYY');
-        const bDate = moment(b.selectedDate, 'DD.MM.YYYY');
+        const aDate = moment(a.selectedDate, DATES.FULL_FORMAT);
+        const bDate = moment(b.selectedDate, DATES.FULL_FORMAT);
         return aDate.isBefore(bDate) ? -1 : 1;
       });
     },
@@ -200,8 +197,8 @@ export default {
       return this.sortedTasks.filter(task => !task.done);
     },
     tasksToday(){
-      const today = moment().format('DD.MM.YYYY'); 
-      const formatedToday = this.formatNumber(today)
+      const today = moment().format(DATES.FULL_FORMAT); 
+      const formatedToday = formatNumber(today)
       return this.tasks.filter(t => t.selectedDate === formatedToday && !t.done);
     },
   }
