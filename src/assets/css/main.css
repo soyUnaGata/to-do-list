@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900;1000&display=swap');
 
+
 :root {
    --primary-bg: rgb(95,88,147);
    --primary-bg-gradient: radial-gradient(circle, rgba(95,88,147,1) 15%, rgba(58,51,114,1) 49%);
@@ -50,7 +51,7 @@ body {
     color: var(--white);
 }
 
-@media (min-width: 320px){
+@media (min-width: 280px){
     .container {
         width: 100%;
         margin: 0 auto;
@@ -193,6 +194,7 @@ body {
         padding: 9px 13px;
         border-radius: 8px;
         position: relative;
+        overflow: auto;
     }
     .task-check{
         position: relative;
@@ -207,10 +209,15 @@ body {
     }
     .calendar-date__options {
         font-weight: var(--fw-700);
-        line-height: 100%;
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow: auto;
     }
     .task-option {
-        font-weight: var(--fw-400);   
+        font-weight: var(--fw-400); 
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow: auto;  
     }
     .checkbox-style {
         position: relative;
