@@ -22,7 +22,8 @@
     <div class="wrapper margin-top-2rem" v-if="activeTab === TABS.CALENDAR">
       <div class="current-calendar">
         <Calendar
-        :tasks="scheduleTasks"/>
+        :tasks="scheduleTasks"
+        @show-task="showTask"/>
       </div>
     </div>
   </main>
@@ -49,7 +50,7 @@
         @checked-task="checkTask"
         @deleted-task="deleteTask"/>
       <TaskList v-else 
-        :tasks="scheduleTasks"
+        :tasks=" filteredScheduleTasks"
         :colors="colors"
         @checked-task="checkTask"
         @edit-current-task="editTask"
@@ -130,6 +131,7 @@ export default {
       today: formatNumber(moment().format(DATES.FULL_FORMAT)),
       todayDate: moment().format(DATES.FULL_MONTH),
       todayDay: moment().format(DATES.DAY),
+      dateFilter: ''
     }
   },
   mounted() {
@@ -181,6 +183,12 @@ export default {
       TasksService.remove(task);
       this.tasks = TasksService.getAll();
     },
+    showTask(day){
+      const formatedNum = formatNumber(day.day.date);
+      const formatedMonth = formatNumber(day.day.currentMonth);
+      const formatedYear = formatNumber(day.day.currentYear);
+      this.dateFilter = `${formatedNum}.${formatedMonth}.${formatedYear}`;
+    }
   }, 
   computed:{
     sortedTasks(){
@@ -195,6 +203,12 @@ export default {
     },
     scheduleTasks(){
       return this.sortedTasks.filter(task => !task.done);
+    },
+    filteredScheduleTasks(){
+      if(!this.dateFilter) return this.scheduleTasks;
+      if(this.today === this.dateFilter) return this.scheduleTasks;
+
+      return this.scheduleTasks.filter(t => t.selectedDate === this.dateFilter)
     },
     tasksToday(){
       const today = moment().format(DATES.FULL_FORMAT); 
