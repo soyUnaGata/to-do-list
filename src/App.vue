@@ -1,8 +1,4 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
 <div class="container">
   <header class="header d-flex justify-content-between align-items-center">
     <h3 class="headline">a.tiempo</h3>
@@ -42,19 +38,22 @@
     </div>
 
     <div class="calendar__details-wrapper margin-top-2rem d-flex flex-column gap-10px">
-      <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
-      v-if="scheduleTasks.length === 0"> You don't have tasks</div>
+      <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" v-if="scheduleTasks.length === 0  && !showCompleted">You don't have tasks</div>
+
       <TaskList  v-if="showCompleted" 
         :tasks="completedTasks"
         :colors="colors"
         @checked-task="checkTask"
-        @deleted-task="deleteTask"/>
+        @deleted-task="deleteTask">
+      </TaskList>
+
       <TaskList v-else 
         :tasks=" filteredScheduleTasks"
         :colors="colors"
         @checked-task="checkTask"
         @edit-current-task="editTask"
-        @deleted-task="deleteTask"/>
+        @deleted-task="deleteTask">
+      </TaskList>
     
     </div>
    
@@ -70,7 +69,7 @@
     </div>
 
     <div class="task-not-exist d-flex align-items-center justify-content-center margin-top-1rem" 
-    v-if="tasksToday .length === 0"> You don't have tasks</div> 
+    v-if="tasksToday.length === 0"> You don't have tasks</div> 
    
     <TaskList 
     :tasks="tasksToday"
